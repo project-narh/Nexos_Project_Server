@@ -72,10 +72,32 @@ public class PlayerManager : MonoBehaviour
             {
                 mainPlayerEntity = spawned;
                 Debug.Log($"[PlayerManager] 플레이어");
+                StartCoroutine(NextFrame(spawned));
             }
         }
     }
 
+    private IEnumerator NextFrame(Entity Entity)
+    {
+        int waitFrame = 2;
+        while (waitFrame-- > 0)
+            yield return null;
+
+        var em = World.DefaultGameObjectInjectionWorld.EntityManager;
+        var query = em.CreateEntityQuery(typeof(FirstPersonPlayer));
+
+        if (query.CalculateEntityCount() == 1)
+        {
+            var controllerEntity = query.GetSingletonEntity();
+            var controller = em.GetComponentData<FirstPersonPlayer>(controllerEntity);
+            controller.ControlledCharacter = Entity;
+            em.SetComponentData(controllerEntity, controller);
+
+            Debug.Log($"[PlayerManager] ControlledCharacter 연결 완료: {Entity}");
+            if (controller.ControlledCharacter != mainPlayerEntity)
+                Debug.LogError("ControlledCharacter가 본인이 아님!");
+        }
+    }
     public void PlayerEnter(S_BroadcastEnterGame packet)
     {
         Debug.Log("[Manager] Player Enter");

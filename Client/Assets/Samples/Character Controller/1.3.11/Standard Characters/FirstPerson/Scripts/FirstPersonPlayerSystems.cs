@@ -17,7 +17,7 @@ public partial class FirstPersonPlayerInputsSystem : SystemBase
     protected override void OnCreate()
     {
         RequireForUpdate<FixedTickSystem.Singleton>();
-        RequireForUpdate(SystemAPI.QueryBuilder().WithAll<FirstPersonPlayer, FirstPersonPlayerInputs, IsMainPlayerTag>().Build());
+        RequireForUpdate(SystemAPI.QueryBuilder().WithAll<FirstPersonPlayer>().Build());
     }
 
     protected override void OnUpdate()
@@ -25,7 +25,7 @@ public partial class FirstPersonPlayerInputsSystem : SystemBase
         uint tick = SystemAPI.GetSingleton<FixedTickSystem.Singleton>().Tick;
 
 #if ENABLE_INPUT_SYSTEM
-        foreach (var (playerInputs, player) in SystemAPI.Query<RefRW<FirstPersonPlayerInputs>, FirstPersonPlayer>().WithAll<IsMainPlayerTag>())
+        foreach (var (playerInputs, player) in SystemAPI.Query<RefRW<FirstPersonPlayerInputs>, FirstPersonPlayer>())
         {
             playerInputs.ValueRW.MoveInput = new float2
             {
@@ -40,6 +40,7 @@ public partial class FirstPersonPlayerInputsSystem : SystemBase
                 playerInputs.ValueRW.JumpPressed.Set(tick);
             }
         }
+        
 #endif
     }
 }
@@ -55,13 +56,13 @@ public partial struct FirstPersonPlayerVariableStepControlSystem : ISystem
     [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
-        state.RequireForUpdate(SystemAPI.QueryBuilder().WithAll<FirstPersonPlayer, FirstPersonPlayerInputs, IsMainPlayerTag>().Build());
+        state.RequireForUpdate(SystemAPI.QueryBuilder().WithAll<FirstPersonPlayer>().Build());
     }
 
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        foreach (var (playerInputs, player) in SystemAPI.Query<FirstPersonPlayerInputs, FirstPersonPlayer>().WithAll<Simulate, IsMainPlayerTag>())
+        foreach (var (playerInputs, player) in SystemAPI.Query<FirstPersonPlayerInputs, FirstPersonPlayer>().WithAll<Simulate>())
         {
             if (SystemAPI.HasComponent<FirstPersonCharacterControl>(player.ControlledCharacter))
             {
@@ -87,7 +88,7 @@ public partial struct FirstPersonPlayerFixedStepControlSystem : ISystem
     public void OnCreate(ref SystemState state)
     {
         state.RequireForUpdate<FixedTickSystem.Singleton>();
-        state.RequireForUpdate(SystemAPI.QueryBuilder().WithAll<FirstPersonPlayer, FirstPersonPlayerInputs, IsMainPlayerTag>().Build());
+        state.RequireForUpdate(SystemAPI.QueryBuilder().WithAll<FirstPersonPlayer>().Build());
     }
 
     [BurstCompile]
@@ -95,14 +96,18 @@ public partial struct FirstPersonPlayerFixedStepControlSystem : ISystem
     {
         uint tick = SystemAPI.GetSingleton<FixedTickSystem.Singleton>().Tick;
 
-        foreach (var (playerInputs, player) in SystemAPI.Query<FirstPersonPlayerInputs, FirstPersonPlayer>().WithAll<Simulate, IsMainPlayerTag>())
+        foreach (var (playerInputs, player) in SystemAPI.Query<FirstPersonPlayerInputs, FirstPersonPlayer>().WithAll<Simulate>())
         {
             if (SystemAPI.HasComponent<FirstPersonCharacterControl>(player.ControlledCharacter))
             {
                 FirstPersonCharacterControl characterControl = SystemAPI.GetComponent<FirstPersonCharacterControl>(player.ControlledCharacter);
 
                 quaternion characterRotation = SystemAPI.GetComponent<LocalTransform>(player.ControlledCharacter).Rotation;
-
+                if (Keyboard.current == null)
+                {
+                    Debug.LogError(" Keyboard.current is null");
+                    return;
+                }
                 // Move
                 float3 characterForward = MathUtilities.GetForwardFromRotation(characterRotation);
                 float3 characterRight = MathUtilities.GetRightFromRotation(characterRotation);

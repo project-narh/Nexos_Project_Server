@@ -49,22 +49,22 @@ public static class PlayerSpawner
         });
 
         // 중요: 모든 이동 및 물리 관련 컴포넌트 초기화
-        if (em.HasComponent<KinematicCharacterBody>(entity))
-        {
-            var characterBody = em.GetComponentData<KinematicCharacterBody>(entity);
-            characterBody.RelativeVelocity = float3.zero; // 상대 속도 초기화
-            characterBody.IsGrounded = true;              // 착지 상태로 설정
-            em.SetComponentData(entity, characterBody);
-        }
+        //if (em.HasComponent<KinematicCharacterBody>(entity))
+        //{
+        //    var characterBody = em.GetComponentData<KinematicCharacterBody>(entity);
+        //    characterBody.RelativeVelocity = float3.zero; // 상대 속도 초기화
+        //    characterBody.IsGrounded = true;              // 착지 상태로 설정
+        //    em.SetComponentData(entity, characterBody);
+        //}
 
-        if (em.HasComponent<FirstPersonCharacterControl>(entity))
-        {
-            var control = em.GetComponentData<FirstPersonCharacterControl>(entity);
-            control.MoveVector = float3.zero;            // 이동 벡터 초기화
-            control.LookDegreesDelta = float2.zero;      // 시선 변화 초기화
-            control.Jump = false;                        // 점프 비활성화
-            em.SetComponentData(entity, control);
-        }
+        //if (em.HasComponent<FirstPersonCharacterControl>(entity))
+        //{
+        //    var control = em.GetComponentData<FirstPersonCharacterControl>(entity);
+        //    control.MoveVector = float3.zero;            // 이동 벡터 초기화
+        //    control.LookDegreesDelta = float2.zero;      // 시선 변화 초기화
+        //    control.Jump = false;                        // 점프 비활성화
+        //    em.SetComponentData(entity, control);
+        //}
         // Relevant 컴포넌트 설정 (층 관리)
         if (em.HasComponent<Relevant>(entity))
         {
