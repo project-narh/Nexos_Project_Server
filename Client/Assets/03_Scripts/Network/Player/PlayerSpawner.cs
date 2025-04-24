@@ -52,6 +52,8 @@ public static class PlayerSpawner
                 Rotation = rot
             });
         }
+
+        Debug.Log($"[SpawnPlayer] Instantiating: {prefab} / isSelf: {isSelf}"); 
         return entity;
     }
 

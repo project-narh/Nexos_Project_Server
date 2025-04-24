@@ -301,6 +301,7 @@ public class UDPSession //송수신 담당
                 }
                 else
                 {
+                    Debug.Log($"[UDP - 수신] 패킷 수신 (Seq: {receivedSeq}, ID: {packetID}, Size: {size})");
                     if (!recivSeq.Contains(receivedSeq))
                     {
                         recivSeq.Add(receivedSeq);
@@ -317,7 +318,7 @@ public class UDPSession //송수신 담당
 
             lastTime = DateTime.UtcNow;
             //TODO : Ack는 일정시간후 다시 보내게
-            //Debug.Log($"[UDP] 정상 패킷 처리 완료 (Seq: {receivedSeq}, ID: {packetID}, Size: {size})");
+            Debug.Log($"[UDP] 정상 패킷 처리 완료 (Seq: {receivedSeq}, ID: {packetID}, Size: {size})");
             if(isSendAck)  PacketManager.Instance.HandlePacket(this, buffer);
         }
         catch (Exception ex)

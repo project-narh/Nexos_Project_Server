@@ -78,7 +78,7 @@ public class PacketManager
                 IPacket packet = func.Invoke(session, buffer);
                 if (_handler.TryGetValue(PacketID, out var action))
                 {
-                    //NetworkManager.Instance.Get_UDPconnect().Enqueue(() => { action.Invoke(session, packet);});
+                    NetworkManager.Instance.Get_UDPconnect().Enqueue(() => { action.Invoke(session, packet);});
                 }
                 else
                     Debug.Log("[UDP] 등록된 메서드가 존재하지 않습니다.");

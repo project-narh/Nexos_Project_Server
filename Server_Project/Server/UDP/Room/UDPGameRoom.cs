@@ -50,6 +50,7 @@ namespace Server.UDP.Room
             enterGame.uid = session.UID;
             enterGame.playerId = session.sessionID;
 
+            Console.WriteLine($"[UDP] Player {session.sessionID} 게임 접속 완료.");
             await Broadcast(enterGame.Write(), (ushort)PacketID.S_BroadcastEnterGame);
           //  await session.SendPacketAsync(enterGame.Write(), (ushort)PacketID.S_BroadcastEnterGame);
             await session.SendPacketAsync(players.Write(),(ushort)PacketID.S_PlayerList);

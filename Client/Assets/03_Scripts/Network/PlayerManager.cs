@@ -4,47 +4,80 @@ using System.Collections.Generic;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.VisualScripting;
+using UnityEditor.Search;
 using UnityEngine;
 using static S_PlayerList;
 
 public class PlayerManager : MonoBehaviour
 {
+    public static PlayerManager Instance;
+    bool isSpawn = false;
+
     public Entity playerPrefabEntity;
     public Entity mainPlayerEntity { get; private set; }
 
-    void Awake()
+    void Start()
     {
-        var em = World.DefaultGameObjectInjectionWorld.EntityManager;
-        if (em.HasComponent<PlayerPrefab>(em.CreateEntityQuery(typeof(PlayerPrefab)).GetSingletonEntity()))
+        if (Instance == null)
         {
-            playerPrefabEntity = em.CreateEntityQuery(typeof(PlayerPrefab)).GetSingleton<PlayerPrefab>().Value;
+            Instance = this;
+            StartCoroutine(Start_ECS());
         }
         else
         {
-            Debug.LogError("[PlayerManager] PlayerPrefab 컴포넌트를 찾을 수 없습니다.");
+            Debug.LogError("[PlayerManager] PlayerManager 인스턴스가 중복 생성되었습니다.");
+            Destroy(gameObject);
+            return;
         }
+        
+    }
+
+    IEnumerator Start_ECS()
+    {
+        var em = World.DefaultGameObjectInjectionWorld.EntityManager;
+        var query = em.CreateEntityQuery(typeof(PlayerPrefab));
+
+        while (query.CalculateEntityCount() != 1)
+            yield return null;
+
+        var entity = query.GetSingletonEntity(); // ← 여기서 GetSingletonEntity 가능
+        playerPrefabEntity = em.GetComponentData<PlayerPrefab>(entity).Value;
+        Debug.Log($"[ECS Init] Loaded prefab entity: {playerPrefabEntity}");
+        isSpawn = true;
+        Debug.Log("[PlayerManager] PlayerPrefab 엔티티 로드 완료.");
     }
 
     public void Player_Spawn(S_PlayerList listPacket)
     {
-        var em = World.DefaultGameObjectInjectionWorld.EntityManager;
+        StartCoroutine(Start_SpawnList(listPacket));
+    }
 
+    IEnumerator Start_SpawnList(S_PlayerList listPacket)
+    {
+        while (!isSpawn)
+            yield return null;
+
+        var em = World.DefaultGameObjectInjectionWorld.EntityManager;
         foreach (S_PlayerList.Player p in listPacket.players)
         {
+            Debug.Log($"[PlayerManager] 리스트 소환. {p.playerId}   {p.position}   {p.rotation}");
             float3 pos = new float3(p.position.x, p.position.y, p.position.z);
             quaternion rot = new quaternion(p.rotation.x, p.rotation.y, p.rotation.z, p.rotation.w);
 
             var spawned = PlayerSpawner.SpawnPlayer(em, playerPrefabEntity, p.playerId, p.uid, pos, rot, p.isSelf);
-
+            if (spawned == Entity.Null)
+                Debug.LogError("[PlayerManager] Entity.Null 반환됨 (소환 실패)");
             if (p.isSelf && spawned != Entity.Null)
             {
                 mainPlayerEntity = spawned;
+                Debug.Log($"[PlayerManager] 플레이어");
             }
         }
     }
 
     public void PlayerEnter(S_BroadcastEnterGame packet)
     {
+        Debug.Log("[Manager] Player Enter");
         var em = World.DefaultGameObjectInjectionWorld.EntityManager;
 
         if (mainPlayerEntity != Entity.Null)

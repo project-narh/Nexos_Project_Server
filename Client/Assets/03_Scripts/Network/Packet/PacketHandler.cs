@@ -19,7 +19,8 @@ class PacketHandler
     public static void S_BroadcastEnterGameHandler(UDPSession session, IPacket packet)
     {
         S_BroadcastEnterGame pkt = packet as S_BroadcastEnterGame;
-        //PlayerManager.Instance.PlayerEnter(pkt);
+        UnityEngine.Debug.Log("[Manager] 플레이어 들어옴");
+        PlayerManager.Instance.PlayerEnter(pkt);
     }
 
     public static void S_BroadcastLeaveGameHandler(UDPSession session, IPacket packet)
@@ -37,11 +38,12 @@ class PacketHandler
 
     public static void S_PlayerListHandler(UDPSession session, IPacket packet)
     {
-        //NetworkManager.Instance.Get_UDPconnect().Enqueue(() =>
-        //{
+        NetworkManager.Instance.Get_UDPconnect().Enqueue(() =>
+        {
+            UnityEngine.Debug.Log("[Manager] 플레이어 리스트 받음");
             S_PlayerList pkt = packet as S_PlayerList;
-            //PlayerManager.Instance.Player_List_wait(pkt);
-        //});
+            PlayerManager.Instance.Player_Spawn(pkt);
+        });
     }
 
     public static void S_LoginResponseHandler(UDPSession session, IPacket packet)

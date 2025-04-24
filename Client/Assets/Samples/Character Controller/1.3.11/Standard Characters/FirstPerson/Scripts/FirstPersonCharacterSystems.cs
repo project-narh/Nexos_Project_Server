@@ -119,13 +119,16 @@ public partial struct FirstPersonCharacterVariableUpdateSystem : ISystem
             Context = _context,
             BaseContext = _baseContext,
         };
-        variableUpdateJob.ScheduleParallel();
+        //variableUpdateJob.ScheduleParallel();
 
         FirstPersonCharacterViewJob viewJob = new FirstPersonCharacterViewJob
         {
             FirstPersonCharacterLookup = SystemAPI.GetComponentLookup<FirstPersonCharacterComponent>(true),
         };
-        viewJob.ScheduleParallel();
+        //viewJob.ScheduleParallel();
+        var handle1 = variableUpdateJob.ScheduleParallel(state.Dependency);
+        var handle2 = viewJob.ScheduleParallel(handle1);
+        state.Dependency = handle2;
 
         elapsedTime += SystemAPI.Time.DeltaTime;
         if (elapsedTime < 0.1f) return;
@@ -211,12 +214,12 @@ public partial struct FirstPersonCharacterVariableUpdateSystem : ISystem
     [WithAll(typeof(Simulate))]
     public partial struct FirstPersonCharacterViewJob : IJobEntity
     {
-        [ReadOnly]
-        public ComponentLookup<FirstPersonCharacterComponent> FirstPersonCharacterLookup;
+        [ReadOnly] public ComponentLookup<FirstPersonCharacterComponent> FirstPersonCharacterLookup;
 
         void Execute(ref LocalTransform localTransform, in FirstPersonCharacterView characterView)
         {
-            if (FirstPersonCharacterLookup.TryGetComponent(characterView.CharacterEntity, out FirstPersonCharacterComponent character))
+            if (FirstPersonCharacterLookup.HasComponent(characterView.CharacterEntity) &&
+                FirstPersonCharacterLookup.TryGetComponent(characterView.CharacterEntity, out var character))
             {
                 localTransform.Rotation = character.ViewLocalRotation;
             }
