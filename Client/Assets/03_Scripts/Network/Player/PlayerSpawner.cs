@@ -54,4 +54,20 @@ public static class PlayerSpawner
         }
         return entity;
     }
+
+    public static void DespawnPlayer(EntityManager em, int uid)
+    {
+        EntityQuery query = em.CreateEntityQuery(typeof(PlayerInfo));
+        using var entities = query.ToEntityArray(Unity.Collections.Allocator.Temp);
+        using var infos = query.ToComponentDataArray<PlayerInfo>(Unity.Collections.Allocator.Temp);
+
+        for (int i = 0; i < infos.Length; i++)
+        {
+            if (infos[i].Uid == uid)
+            {
+                em.DestroyEntity(entities[i]);
+                break;
+            }
+        }
+    }
 }

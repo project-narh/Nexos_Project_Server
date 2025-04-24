@@ -8,6 +8,7 @@ using Unity.Transforms;
 using Unity.CharacterController;
 using Unity.Burst.Intrinsics;
 using System.Collections.Generic;
+using UnityEngine;
 
 [UpdateInGroup(typeof(KinematicCharacterPhysicsUpdateGroup))]
 [BurstCompile]
@@ -86,11 +87,12 @@ public partial struct FirstPersonCharacterVariableUpdateSystem : ISystem
 
     private static Dictionary<Entity, float3> lastPositions = new();
     private static Dictionary<Entity, quaternion> lastRotations = new();
-    private static float elapsedTime = 0f;
+    private float elapsedTime;
 
     [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
+        elapsedTime = 0;
         _characterQuery = KinematicCharacterUtilities.GetBaseCharacterQueryBuilder()
             .WithAll<
                 FirstPersonCharacterComponent,
@@ -108,6 +110,7 @@ public partial struct FirstPersonCharacterVariableUpdateSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
+
         _context.OnSystemUpdate(ref state);
         _baseContext.OnSystemUpdate(ref state, SystemAPI.Time, SystemAPI.GetSingleton<PhysicsWorldSingleton>());
 
@@ -128,16 +131,19 @@ public partial struct FirstPersonCharacterVariableUpdateSystem : ISystem
         if (elapsedTime < 0.1f) return;
         elapsedTime = 0f;
 
+        var em = state.EntityManager;
+
         var query = SystemAPI.QueryBuilder()
-        .WithAll<LocalTransform, IsMainPlayerTag>()
-        .Build(); // LocalTransform과 IsMainPlayerTag를 가진 엔티티를 쿼리
+            .WithAll<LocalTransform, IsMainPlayerTag>()
+            .Build();
 
-        // LocalTransform 컴포넌트 읽기 전용으로 접근할 수 있도록 설정
         var transformLookup = SystemAPI.GetComponentLookup<LocalTransform>(true);
+        var lastTransformLookup = SystemAPI.GetComponentLookup<LastTransform>(false);
 
-        foreach (var entity in query.ToEntityArray(Allocator.Temp))
+        var entities = query.ToEntityArray(Allocator.Temp);
+
+        foreach (var entity in entities)
         {
-            //혹시라도 LocalTransform이 없으면 스킵
             if (!transformLookup.HasComponent(entity))
                 continue;
 
@@ -145,35 +151,38 @@ public partial struct FirstPersonCharacterVariableUpdateSystem : ISystem
             float3 pos = transform.Position;
             quaternion rot = transform.Rotation;
 
-            bool changed = false;
+            bool changed = true;
 
-            if (!lastPositions.TryGetValue(entity, out var lastPos) || !lastRotations.TryGetValue(entity, out var lastRot))
+            if (lastTransformLookup.HasComponent(entity))
             {
-                changed = true;
-            }
-            else
-            {
-                float posDiff = math.distance(pos, lastPos);
-                float rotDiff = math.degrees(math.acos(math.clamp(math.dot(rot, lastRot), -1f, 1f)));
+                var last = lastTransformLookup[entity];
+                float posDiff = math.distance(pos, last.Position);
+                float rotDiff = math.degrees(math.acos(math.clamp(math.dot(rot, last.Rotation), -1f, 1f)));
 
-                if (posDiff > 0.001f || rotDiff > 0.5f)
-                    changed = true;
+                changed = posDiff > 0.001f || rotDiff > 0.5f;
             }
 
             if (changed)
             {
                 var movePacket = new C_Move
                 {
-                    position = new UnityEngine.Vector3(pos.x, pos.y, pos.z),
-                    rotation = new UnityEngine.Quaternion(rot.value.x, rot.value.y, rot.value.z, rot.value.w)
+                    position = new Vector3(pos.x, pos.y, pos.z),
+                    rotation = new Quaternion(rot.value.x, rot.value.y, rot.value.z, rot.value.w)
                 };
 
                 NetworkManager.Instance.Get_UDPconnect().SendToServer(movePacket.Write(), (ushort)PacketID.C_Move);
 
-                lastPositions[entity] = pos;
-                lastRotations[entity] = rot;
+                if (lastTransformLookup.HasComponent(entity))
+                {
+                    lastTransformLookup[entity] = new LastTransform { Position = pos, Rotation = rot };
+                }
+                else
+                {
+                    em.AddComponentData(entity, new LastTransform { Position = pos, Rotation = rot });
+                }
             }
         }
+        entities.Dispose();
     }
 
     [BurstCompile]

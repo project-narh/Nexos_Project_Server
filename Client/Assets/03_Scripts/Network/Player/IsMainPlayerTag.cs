@@ -11,6 +11,11 @@ public struct TargetTransform : IComponentData
     public float3 Position;
     public quaternion Rotation;
 }
+public struct LastTransform : IComponentData
+{
+    public float3 Position;
+    public quaternion Rotation;
+}
 
 //if (em.HasComponent<TargetTransform>(entity))
 //{
