@@ -1,5 +1,4 @@
 ﻿using Server;
-using Server.Database;
 using Server.UDP.Room;
 using ServerCore;
 using System;
@@ -8,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using ZstdSharp.Unsafe;
 
 // 수동으로 관리하며 무엇을 호출할지
 namespace UDP

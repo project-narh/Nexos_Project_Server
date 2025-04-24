@@ -1,6 +1,5 @@
 ﻿using Server.UDP.Session;
 using ServerCore;
-using static Mysqlx.Notice.Warning.Types;
 
 namespace Server.UDP.Room
 {
@@ -9,8 +8,8 @@ namespace Server.UDP.Room
         private HashSet<UDPSession> sessions = new HashSet<UDPSession>();
         object _lock = new object();
 
-        Vector3 Spawn_Pos = new Vector3(5.702278f, 0f, 11.80618f);
-        Quaternion Spawn_Rot = new Quaternion(0f, 0.866f, 0f, -0.5f);
+        Vector3 Spawn_Pos = new Vector3(-118.981f, 17.977f, -31.193f);
+        Quaternion Spawn_Rot = new Quaternion(0f, 0f, 0f, 1f);
 
         public async Task Enter(UDPSession session)
         {

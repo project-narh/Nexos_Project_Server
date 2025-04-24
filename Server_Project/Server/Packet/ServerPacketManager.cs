@@ -1,12 +1,9 @@
-using Server.Packet;
-using Server.Web;
 using ServerCore;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
-using ZstdSharp.Unsafe;
 using UDP;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
@@ -14,7 +11,6 @@ using System.Xml.Linq;
 public class PacketManager
 {
 
-    //    [2바이트] 패킷 ID | [2바이트] 시퀀스 넘버 | [2바이트] 패킷 길이 | [데이터]
     //    [2바이트] 패킷 길이 | [2바이트] 패킷 ID | [2바이트] 시퀀스 번호 | [데이터]
     #region Singleton (이전 방식은 매번 실행될때 래지스터 호출해줘야 해서 그런 작업 안하게 수정)
     static PacketManager instance = new PacketManager();
@@ -28,31 +24,11 @@ public class PacketManager
 
     Dictionary<ushort, Func<UDPSession, ArraySegment<byte>, IPacket>> _makeFunc = new Dictionary<ushort, Func<UDPSession, ArraySegment<byte>, IPacket>>();
     ConcurrentDictionary<ushort, Func<UDPSession, IPacket, Task>> _handler = new ConcurrentDictionary<ushort, Func<UDPSession, IPacket, Task>>();
-    Dictionary<string, Func<int, JsonElement, Task<string>>> _webhandler = new Dictionary<string, Func<int, JsonElement, Task<string>>>();
 
     public void Register()
     {
         //패킷을 받는도중 Register를 하면 문제 발생(먼저 등록하고 패킷이 들어오면 문제가 안된다)
-            Register_UDP(); // 추후 UDP로 변경
-        Register_Web();
-    }
-
-    private void Register_Web()
-    {
-        _webhandler.Add("inventory_load", async (uid, data) => await WebPacketHandler.inventory_loadHandler(uid, data));
-        _webhandler.Add("item_create", async (uid, data) => await WebPacketHandler.item_createHandler(uid, data));
-        _webhandler.Add("trade_request", async (uid, data) => await WebPacketHandler.trade_requestHandler(uid, data));
-        _webhandler.Add("login_request", async (uid, data) => await WebPacketHandler.loginHandler(uid, data));
-        _webhandler.Add("register_request", async (uid, data) => await WebPacketHandler.RegisterHandler(uid, data));
-        _webhandler.Add("trade_create", async (uid, data) => await WebPacketHandler.trade_createHandler(uid, data));
-        _webhandler.Add("trade_Accept", async (uid, data) => await WebPacketHandler.trade_AcceptHandler(uid, data));
-        _webhandler.Add("trade_item_update", async (uid, data) => await WebPacketHandler.Trade_UpdateHandler(uid, data));
-        _webhandler.Add("trade_progress", async (uid, data) => await WebPacketHandler.Trade_CallPrograssHandler(uid, data));
-        _webhandler.Add("shop_reqeust", async (uid, data) => await WebPacketHandler.Shop_responseHandler(uid, data));
-        _webhandler.Add("shop_buy", async (uid, data) => await WebPacketHandler.Shop_BuyHandler(uid, data));
-        _webhandler.Add("shop_sell", async (uid, data) => await WebPacketHandler.Shop_SellHandler(uid, data));
-        _webhandler.Add("address_login", async (uid, data) => await WebPacketHandler.AddressLogin_Handler(uid, data));
-
+            Register_UDP();
     }
 
     T MakePacket<T>(UDPSession session, ArraySegment<byte> buffer) where T : IPacket, new()
@@ -87,25 +63,6 @@ public class PacketManager
 
     }
 
-    public async Task<string> OnRecvPacketWeb(int id, string name, JsonElement data)
-    {
-        if (_webhandler.TryGetValue(name, out var func))
-        {
-            try
-            {
-                return await func(id, data);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"[WebSocket] {e.ToString} : 등록된 처리 메서드가 없음");
-            }
-        }
-        else
-        {
-            Console.WriteLine($"[WebSocket] 등록되지 않은 패킷입니다 (이름 : {name})");
-        }
-        return JsonSerializer.Serialize(new { error = "실패" }, Startup.jsonOptions);
-    }
 
 
     //핸들러로 보내는 부분 분리

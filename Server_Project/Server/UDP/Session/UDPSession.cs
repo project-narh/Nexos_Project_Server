@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Server;
 using Server.UDP.Packet;
 using Server.UDP.Room;
 using Server.UDP.Session;
@@ -71,6 +71,7 @@ public class UDPSession //송수신 담당
 
     public void Onconnected()
     {
+        //JobTimer.Instance.Push(() => UDPServer.room.Enter(this).Wait());
     }
 
     public void OnClientDisconnect(UDPSession session)
