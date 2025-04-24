@@ -117,7 +117,7 @@ public static class PlayerSpawner
         if (isSelf)
         {
             em.AddComponent<IsMainPlayerTag>(entity);
-            // ActorEntityPlayerTag 추가 (카메라 제어용)
+            em.AddComponent<MainEntityCamera>(entity);
             if (!em.HasComponent<ActorEntityPlayerTag>(entity))
             {
                 em.AddComponent<ActorEntityPlayerTag>(entity);
@@ -240,9 +240,7 @@ public static class PlayerSpawner
                 var parent = em.GetComponentData<Parent>(childEntity);
                 if (parent.Value == rootEntity)
                 {
-                    // 여기서 추가 조건 확인 가능
-                    // 예: 특정 컴포넌트 존재 여부, 이름 패턴 등
-
+                    
                     Debug.Log($"[FindViewEntityInHierarchy] Found potential view entity: {childEntity}");
                     return childEntity;
                 }
