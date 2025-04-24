@@ -16,11 +16,11 @@ namespace UDP
         public static async Task C_EnterGameHandler(UDPSession session, IPacket packet)
         {
             C_EnterGame pkt = packet as C_EnterGame;
-            Console.WriteLine($"UID : {pkt.uid}");
-            session.UID = pkt.uid;
-            Console.WriteLine($"UID(Session) : {session.UID}");
+            //Console.WriteLine($"UID : {pkt.uid}");
+            //session.UID = pkt.uid;
+            //Console.WriteLine($"UID(Session) : {session.UID}");
             if(session.room == null) Console.WriteLine($"없어");
-            await session.room.Enter(session);
+            //await session.room.Enter(session);
 
             
             //TCPServer.Room.Push(() => TCPServer.Room.Enter(clientSession));

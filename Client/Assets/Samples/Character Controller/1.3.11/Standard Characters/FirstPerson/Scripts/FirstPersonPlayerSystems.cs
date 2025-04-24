@@ -103,11 +103,7 @@ public partial struct FirstPersonPlayerFixedStepControlSystem : ISystem
                 FirstPersonCharacterControl characterControl = SystemAPI.GetComponent<FirstPersonCharacterControl>(player.ControlledCharacter);
 
                 quaternion characterRotation = SystemAPI.GetComponent<LocalTransform>(player.ControlledCharacter).Rotation;
-                if (Keyboard.current == null)
-                {
-                    Debug.LogError(" Keyboard.current is null");
-                    return;
-                }
+
                 // Move
                 float3 characterForward = MathUtilities.GetForwardFromRotation(characterRotation);
                 float3 characterRight = MathUtilities.GetRightFromRotation(characterRotation);

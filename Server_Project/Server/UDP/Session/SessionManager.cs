@@ -35,7 +35,9 @@ namespace Server.UDP.Session
                     sessions[id] = session;
                     Console.WriteLine($"[UDP] 클라이언트 세션 접속 {id} ");
                     session.room = UDPServer.room;
-
+                    session.sessionID = id;
+                    session.UID = id;
+                    session.room.Enter(session);
                     return session;
                 }
 

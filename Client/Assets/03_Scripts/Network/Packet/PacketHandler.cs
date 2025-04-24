@@ -33,7 +33,7 @@ class PacketHandler
     public static void S_BroadcastMoveHandler(UDPSession session, IPacket packet)
     {
         S_BroadcastMove pkt = packet as S_BroadcastMove;
-        //PlayerManager.Instance.Move(pkt);
+        PlayerManager.Instance.Move(pkt);
     }
 
     public static void S_PlayerListHandler(UDPSession session, IPacket packet)

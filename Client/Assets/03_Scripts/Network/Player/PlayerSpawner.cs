@@ -158,6 +158,11 @@ public static class PlayerSpawner
                     Debug.LogWarning("[SpawnPlayer] Could not find view entity in hierarchy!");
                 }
             }
+            em.AddComponentData(entity, new TargetTransform
+            {
+                Position = pos,
+                Rotation = rot
+            });
         }
         else
         {

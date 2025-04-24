@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance;
     bool isSpawn = false;
+    private Dictionary<int, Entity> playerEntityMap = new();
 
     public Entity playerPrefabEntity;
     public Entity mainPlayerEntity { get; private set; }
@@ -68,6 +69,7 @@ public class PlayerManager : MonoBehaviour
             var spawned = PlayerSpawner.SpawnPlayer(em, playerPrefabEntity, p.playerId, p.uid, pos, rot, p.isSelf);
             if (spawned == Entity.Null)
                 Debug.LogError("[PlayerManager] Entity.Null 반환됨 (소환 실패)");
+            playerEntityMap[p.playerId] = spawned;
             if (p.isSelf && spawned != Entity.Null)
             {
                 mainPlayerEntity = spawned;
@@ -113,11 +115,27 @@ public class PlayerManager : MonoBehaviour
         quaternion rot = new quaternion(packet.rotation.x, packet.rotation.y, packet.rotation.z, packet.rotation.w);
 
         var entity = PlayerSpawner.SpawnPlayer(em, playerPrefabEntity, packet.playerId, packet.uid, pos, rot, false);
-
+        playerEntityMap[packet.playerId] = entity;
         // 여기서도 추가적인 확인이 필요하면 진행
         if (entity != Entity.Null)
         {
             Debug.Log($"[PlayerManager] 다른 플레이어 등장: {packet.playerId}");
+        }
+    }
+    public void Move(S_BroadcastMove packet)
+    {
+        Debug.Log($"[PlayerManager] 이동: {packet.playerId}  위치 : {packet.position}  회전 : {packet.rotation}");
+        var em = World.DefaultGameObjectInjectionWorld.EntityManager;
+        if (playerEntityMap.TryGetValue(packet.playerId, out Entity entity))
+        {
+            if (!em.HasComponent<TargetTransform>(entity)) return;
+            if (em.HasComponent<IsMainPlayerTag>(entity)) return;
+
+            em.SetComponentData(entity, new TargetTransform
+            {
+                Position = packet.position,
+                Rotation = packet.rotation
+            });
         }
     }
 }
