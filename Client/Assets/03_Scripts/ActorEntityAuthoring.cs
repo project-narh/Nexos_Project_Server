@@ -92,7 +92,7 @@ public partial struct ActorEntityRegistrationSystem : ISystem
         foreach (var (ptag, localTransform, _) in
                 SystemAPI.Query<RefRO<ActorEntityPlayerTag>, RefRO<LocalTransform>, RefRO<IsMainPlayerTag>>())
         {
-            Debug.Log($"[ActorEntityRegistration] Setting camera position to {localTransform.ValueRO.Position}");
+            //Debug.Log($"[ActorEntityRegistration] Setting camera position to {localTransform.ValueRO.Position}");
             ManagementSession.Instance.SetCameraRigPosition(localTransform.ValueRO.Position);
             ManagementSession.Instance.SetCameraRigRotation(localTransform.ValueRO.Rotation);
         }
