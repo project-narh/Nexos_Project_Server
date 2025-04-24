@@ -1,0 +1,23 @@
+{
+  "name": "나무 창",
+  "description": "나무로된 창이다",
+  "image": "https://metaongraduation.kro.kr/image/item/SpearT1.png",
+  "attributes": [
+    {
+      "trait_type": "고유 ID",
+      "value": "3"
+    },
+    {
+      "trait_type": "유형",
+      "value": "EQUIPMENT"
+    },
+    {
+      "trait_type": "버전",
+      "value": 1
+    },
+    {
+      "trait_type": "상태",
+      "value": "USE"
+    }
+  ]
+}

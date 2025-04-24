@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 6fd3fc8e7b174414084ef2a2f3ce7cc0
+timeCreated: 1453540070
+licenseType: Store
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 54780
+  packageName: Horizon Based Ambient Occlusion
+  packageVersion: 3.6
+  assetPath: Assets/Horizon Based Ambient Occlusion/Shaders/HBAO_Blur.cginc
+  uploadId: 663127

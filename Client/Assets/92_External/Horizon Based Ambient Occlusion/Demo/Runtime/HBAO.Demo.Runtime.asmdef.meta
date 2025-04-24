@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d7729a5237c96f948aaf7de13ad4cffb
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 54780
+  packageName: Horizon Based Ambient Occlusion
+  packageVersion: 3.6
+  assetPath: Assets/Horizon Based Ambient Occlusion/Demo/Runtime/HBAO.Demo.Runtime.asmdef
+  uploadId: 663127

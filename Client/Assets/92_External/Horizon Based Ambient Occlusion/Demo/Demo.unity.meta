@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 241634a1ead4cbf4aa1750dbe7debbab
+timeCreated: 1453576474
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 54780
+  packageName: Horizon Based Ambient Occlusion
+  packageVersion: 3.6
+  assetPath: Assets/Horizon Based Ambient Occlusion/Demo/Demo.unity
+  uploadId: 663127

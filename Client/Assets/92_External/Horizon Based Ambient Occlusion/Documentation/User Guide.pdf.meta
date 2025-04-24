@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 061da04314aaba248977f5671e799370
+timeCreated: 1467127598
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 54780
+  packageName: Horizon Based Ambient Occlusion
+  packageVersion: 3.6
+  assetPath: Assets/Horizon Based Ambient Occlusion/Documentation/User Guide.pdf
+  uploadId: 663127

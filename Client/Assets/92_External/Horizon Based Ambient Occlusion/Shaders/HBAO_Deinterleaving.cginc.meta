@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 87df896bfe60ae541ae6565690473297
+timeCreated: 1467102228
+licenseType: Store
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 54780
+  packageName: Horizon Based Ambient Occlusion
+  packageVersion: 3.6
+  assetPath: Assets/Horizon Based Ambient Occlusion/Shaders/HBAO_Deinterleaving.cginc
+  uploadId: 663127

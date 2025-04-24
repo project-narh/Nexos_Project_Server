@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: aa7be86dd68319442ac4a9c85bb21c81
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 54780
+  packageName: Horizon Based Ambient Occlusion
+  packageVersion: 3.6
+  assetPath: Assets/Horizon Based Ambient Occlusion/Shaders/HBAO_AO.cginc
+  uploadId: 663127

@@ -1,0 +1,23 @@
+{
+  "name": "조악한 칼",
+  "description": "뭐지 이 칼은",
+  "image": "https://metaongraduation.kro.kr/image/item/DaggerT1.png",
+  "attributes": [
+    {
+      "trait_type": "고유 ID",
+      "value": "11"
+    },
+    {
+      "trait_type": "유형",
+      "value": "EQUIPMENT"
+    },
+    {
+      "trait_type": "버전",
+      "value": 1
+    },
+    {
+      "trait_type": "상태",
+      "value": "USE"
+    }
+  ]
+}

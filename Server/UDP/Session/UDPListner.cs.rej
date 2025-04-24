@@ -1,0 +1,12 @@
+diff a/Server/Server_Project/Server/UDP/Session/UDPListner.cs b/Server/Server_Project/Server/UDP/Session/UDPListner.cs	(rejected hunks)
+@@ -109,10 +109,7 @@
+ 
+         private async void OnReceiveCompleted(object sender, SocketAsyncEventArgs args)
+         {
+-            Console.WriteLine($"[UDP] 수신 시도 From: {args.RemoteEndPoint} Bytes: {args.BytesTransferred}");
+-
+             ushort packetID = BitConverter.ToUInt16(args.Buffer, args.Offset + 2);
+-            Console.WriteLine($"[UDP] 받은 패킷 ID: {packetID}");
+ 
+             try
+             {

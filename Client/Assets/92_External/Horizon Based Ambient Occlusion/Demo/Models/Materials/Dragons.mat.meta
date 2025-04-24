@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 86e1545bedbf12044bc434adf047297c
+timeCreated: 1454157498
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 54780
+  packageName: Horizon Based Ambient Occlusion
+  packageVersion: 3.6
+  assetPath: Assets/Horizon Based Ambient Occlusion/Demo/Models/Materials/Dragons.mat
+  uploadId: 663127

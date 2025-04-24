@@ -1,0 +1,309 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\ArmorT1.png",
+      "PackagePath": "staticwebassets\\image\\item\\ArmorT1.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\ArmorT2.png",
+      "PackagePath": "staticwebassets\\image\\item\\ArmorT2.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\AxeDoubleT1.png",
+      "PackagePath": "staticwebassets\\image\\item\\AxeDoubleT1.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\AxeDoubleT2.png",
+      "PackagePath": "staticwebassets\\image\\item\\AxeDoubleT2.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\AxeT1.png",
+      "PackagePath": "staticwebassets\\image\\item\\AxeT1.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\AxeT2.png",
+      "PackagePath": "staticwebassets\\image\\item\\AxeT2.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\Backpack.png",
+      "PackagePath": "staticwebassets\\image\\item\\Backpack.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\BowT1.png",
+      "PackagePath": "staticwebassets\\image\\item\\BowT1.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\BowT2.png",
+      "PackagePath": "staticwebassets\\image\\item\\BowT2.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\Coin.png",
+      "PackagePath": "staticwebassets\\image\\item\\Coin.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\DaggerT1.png",
+      "PackagePath": "staticwebassets\\image\\item\\DaggerT1.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\DaggerT2.png",
+      "PackagePath": "staticwebassets\\image\\item\\DaggerT2.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\FrameRound.png",
+      "PackagePath": "staticwebassets\\image\\item\\FrameRound.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\FrameSquare.png",
+      "PackagePath": "staticwebassets\\image\\item\\FrameSquare.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\GemBlue.png",
+      "PackagePath": "staticwebassets\\image\\item\\GemBlue.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\GemGreen.png",
+      "PackagePath": "staticwebassets\\image\\item\\GemGreen.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\GemRed.png",
+      "PackagePath": "staticwebassets\\image\\item\\GemRed.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\GemYellow.png",
+      "PackagePath": "staticwebassets\\image\\item\\GemYellow.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\HammerT1.png",
+      "PackagePath": "staticwebassets\\image\\item\\HammerT1.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\HammerT2.png",
+      "PackagePath": "staticwebassets\\image\\item\\HammerT2.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\HeartEmpty.png",
+      "PackagePath": "staticwebassets\\image\\item\\HeartEmpty.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\HeartFull.png",
+      "PackagePath": "staticwebassets\\image\\item\\HeartFull.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\HeartHalf.png",
+      "PackagePath": "staticwebassets\\image\\item\\HeartHalf.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\HelmetT1.png",
+      "PackagePath": "staticwebassets\\image\\item\\HelmetT1.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\HelmetT2.png",
+      "PackagePath": "staticwebassets\\image\\item\\HelmetT2.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\Letter.png",
+      "PackagePath": "staticwebassets\\image\\item\\Letter.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\Map.png",
+      "PackagePath": "staticwebassets\\image\\item\\Map.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\PotionBlue.png",
+      "PackagePath": "staticwebassets\\image\\item\\PotionBlue.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\PotionGreen.png",
+      "PackagePath": "staticwebassets\\image\\item\\PotionGreen.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\PotionRed.png",
+      "PackagePath": "staticwebassets\\image\\item\\PotionRed.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\PotionYellow.png",
+      "PackagePath": "staticwebassets\\image\\item\\PotionYellow.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\Scroll.png",
+      "PackagePath": "staticwebassets\\image\\item\\Scroll.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\ShieldLargeT1.png",
+      "PackagePath": "staticwebassets\\image\\item\\ShieldLargeT1.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\ShieldLargeT2.png",
+      "PackagePath": "staticwebassets\\image\\item\\ShieldLargeT2.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\ShieldSmallT1.png",
+      "PackagePath": "staticwebassets\\image\\item\\ShieldSmallT1.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\ShieldSmallT2.png",
+      "PackagePath": "staticwebassets\\image\\item\\ShieldSmallT2.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\SpearT1.png",
+      "PackagePath": "staticwebassets\\image\\item\\SpearT1.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\SpearT2.png",
+      "PackagePath": "staticwebassets\\image\\item\\SpearT2.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\SwordT1.png",
+      "PackagePath": "staticwebassets\\image\\item\\SwordT1.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\SwordT2.png",
+      "PackagePath": "staticwebassets\\image\\item\\SwordT2.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\SwordWood.png",
+      "PackagePath": "staticwebassets\\image\\item\\SwordWood.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\TomeBlue.png",
+      "PackagePath": "staticwebassets\\image\\item\\TomeBlue.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\TomeGreen.png",
+      "PackagePath": "staticwebassets\\image\\item\\TomeGreen.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\TomeRed.png",
+      "PackagePath": "staticwebassets\\image\\item\\TomeRed.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\TomeYellow.png",
+      "PackagePath": "staticwebassets\\image\\item\\TomeYellow.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\WandT1.png",
+      "PackagePath": "staticwebassets\\image\\item\\WandT1.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\WandT2.png",
+      "PackagePath": "staticwebassets\\image\\item\\WandT2.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\X.png",
+      "PackagePath": "staticwebassets\\image\\item\\X.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\image\\item\\collection-logo.png",
+      "PackagePath": "staticwebassets\\image\\item\\collection-logo.png"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\metadata\\0000000000000000000000000000000000000000000000000000000000000001.json",
+      "PackagePath": "staticwebassets\\metadata\\0000000000000000000000000000000000000000000000000000000000000001.json"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\metadata\\1.json",
+      "PackagePath": "staticwebassets\\metadata\\1.json"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\metadata\\10.json",
+      "PackagePath": "staticwebassets\\metadata\\10.json"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\metadata\\11.json",
+      "PackagePath": "staticwebassets\\metadata\\11.json"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\metadata\\12.json",
+      "PackagePath": "staticwebassets\\metadata\\12.json"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\metadata\\13.json",
+      "PackagePath": "staticwebassets\\metadata\\13.json"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\metadata\\14.json",
+      "PackagePath": "staticwebassets\\metadata\\14.json"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\metadata\\15.json",
+      "PackagePath": "staticwebassets\\metadata\\15.json"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\metadata\\16.json",
+      "PackagePath": "staticwebassets\\metadata\\16.json"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\metadata\\17.json",
+      "PackagePath": "staticwebassets\\metadata\\17.json"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\metadata\\18.json",
+      "PackagePath": "staticwebassets\\metadata\\18.json"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\metadata\\19.json",
+      "PackagePath": "staticwebassets\\metadata\\19.json"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\metadata\\2.json",
+      "PackagePath": "staticwebassets\\metadata\\2.json"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\metadata\\20.json",
+      "PackagePath": "staticwebassets\\metadata\\20.json"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\metadata\\3.json",
+      "PackagePath": "staticwebassets\\metadata\\3.json"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\metadata\\4.json",
+      "PackagePath": "staticwebassets\\metadata\\4.json"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\metadata\\5.json",
+      "PackagePath": "staticwebassets\\metadata\\5.json"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\metadata\\6.json",
+      "PackagePath": "staticwebassets\\metadata\\6.json"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\metadata\\7.json",
+      "PackagePath": "staticwebassets\\metadata\\7.json"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\metadata\\8.json",
+      "PackagePath": "staticwebassets\\metadata\\8.json"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\metadata\\9.json",
+      "PackagePath": "staticwebassets\\metadata\\9.json"
+    },
+    {
+      "Id": "D:\\Git\\Graduation-Project\\Server\\Server_Project\\Server\\wwwroot\\metadata\\collection-metadata.json",
+      "PackagePath": "staticwebassets\\metadata\\collection-metadata.json"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.Server.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.Server.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.build.Server.props",
+      "PackagePath": "build\\Server.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildMultiTargeting.Server.props",
+      "PackagePath": "buildMultiTargeting\\Server.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildTransitive.Server.props",
+      "PackagePath": "buildTransitive\\Server.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

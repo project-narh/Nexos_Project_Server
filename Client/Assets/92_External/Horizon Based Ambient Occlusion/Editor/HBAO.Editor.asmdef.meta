@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: bbd7cb83004dde543aac62cbce764d58
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 54780
+  packageName: Horizon Based Ambient Occlusion
+  packageVersion: 3.6
+  assetPath: Assets/Horizon Based Ambient Occlusion/Editor/HBAO.Editor.asmdef
+  uploadId: 663127

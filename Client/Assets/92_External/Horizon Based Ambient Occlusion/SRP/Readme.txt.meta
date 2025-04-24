@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 15a5b7bce341d6a4189869b3d1c95ca1
+timeCreated: 1582907133
+licenseType: Store
+TextScriptImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 54780
+  packageName: Horizon Based Ambient Occlusion
+  packageVersion: 3.6
+  assetPath: Assets/Horizon Based Ambient Occlusion/SRP/Readme.txt
+  uploadId: 663127
