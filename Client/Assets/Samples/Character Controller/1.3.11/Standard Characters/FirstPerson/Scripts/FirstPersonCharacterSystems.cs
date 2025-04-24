@@ -130,62 +130,62 @@ public partial struct FirstPersonCharacterVariableUpdateSystem : ISystem
         var handle2 = viewJob.ScheduleParallel(handle1);
         state.Dependency = handle2;
 
-        elapsedTime += SystemAPI.Time.DeltaTime;
-        if (elapsedTime < 0.1f) return;
-        elapsedTime = 0f;
+        //elapsedTime += SystemAPI.Time.DeltaTime;
+        //if (elapsedTime < 0.1f) return;
+        //elapsedTime = 0f;
 
-        var em = state.EntityManager;
+        //var em = state.EntityManager;
 
-        var query = SystemAPI.QueryBuilder()
-            .WithAll<LocalTransform, IsMainPlayerTag>()
-            .Build();
+        //var query = SystemAPI.QueryBuilder()
+        //    .WithAll<LocalTransform, IsMainPlayerTag>()
+        //    .Build();
 
-        var transformLookup = SystemAPI.GetComponentLookup<LocalTransform>(true);
-        var lastTransformLookup = SystemAPI.GetComponentLookup<LastTransform>(false);
+        //var transformLookup = SystemAPI.GetComponentLookup<LocalTransform>(true);
+        //var lastTransformLookup = SystemAPI.GetComponentLookup<LastTransform>(false);
 
-        var entities = query.ToEntityArray(Allocator.Temp);
+        //var entities = query.ToEntityArray(Allocator.Temp);
 
-        foreach (var entity in entities)
-        {
-            if (!transformLookup.HasComponent(entity))
-                continue;
+        //foreach (var entity in entities)
+        //{
+        //    if (!transformLookup.HasComponent(entity))
+        //        continue;
 
-            var transform = transformLookup[entity];
-            float3 pos = transform.Position;
-            quaternion rot = transform.Rotation;
+        //    var transform = transformLookup[entity];
+        //    float3 pos = transform.Position;
+        //    quaternion rot = transform.Rotation;
 
-            bool changed = true;
+        //    bool changed = true;
 
-            if (lastTransformLookup.HasComponent(entity))
-            {
-                var last = lastTransformLookup[entity];
-                float posDiff = math.distance(pos, last.Position);
-                float rotDiff = math.degrees(math.acos(math.clamp(math.dot(rot, last.Rotation), -1f, 1f)));
+        //    if (lastTransformLookup.HasComponent(entity))
+        //    {
+        //        var last = lastTransformLookup[entity];
+        //        float posDiff = math.distance(pos, last.Position);
+        //        float rotDiff = math.degrees(math.acos(math.clamp(math.dot(rot, last.Rotation), -1f, 1f)));
 
-                changed = posDiff > 0.001f || rotDiff > 0.5f;
-            }
+        //        changed = posDiff > 0.001f || rotDiff > 0.5f;
+        //    }
 
-            if (changed)
-            {
-                var movePacket = new C_Move
-                {
-                    position = new Vector3(pos.x, pos.y, pos.z),
-                    rotation = new Quaternion(rot.value.x, rot.value.y, rot.value.z, rot.value.w)
-                };
+        //    if (changed)
+        //    {
+        //        var movePacket = new C_Move
+        //        {
+        //            position = new Vector3(pos.x, pos.y, pos.z),
+        //            rotation = new Quaternion(rot.value.x, rot.value.y, rot.value.z, rot.value.w)
+        //        };
 
-                NetworkManager.Instance.Get_UDPconnect().SendToServer(movePacket.Write(), (ushort)PacketID.C_Move);
+        //        NetworkManager.Instance.Get_UDPconnect().SendToServer(movePacket.Write(), (ushort)PacketID.C_Move);
 
-                if (lastTransformLookup.HasComponent(entity))
-                {
-                    lastTransformLookup[entity] = new LastTransform { Position = pos, Rotation = rot };
-                }
-                else
-                {
-                    em.AddComponentData(entity, new LastTransform { Position = pos, Rotation = rot });
-                }
-            }
-        }
-        entities.Dispose();
+        //        if (lastTransformLookup.HasComponent(entity))
+        //        {
+        //            lastTransformLookup[entity] = new LastTransform { Position = pos, Rotation = rot };
+        //        }
+        //        else
+        //        {
+        //            em.AddComponentData(entity, new LastTransform { Position = pos, Rotation = rot });
+        //        }
+        //    }
+        //}
+        //entities.Dispose();
     }
 
     [BurstCompile]
@@ -227,19 +227,19 @@ public partial struct FirstPersonCharacterVariableUpdateSystem : ISystem
     }
 }
 
-[UpdateInGroup(typeof(SimulationSystemGroup))]
-public partial struct OtherPlayerLerpSystem : ISystem
-{
-    public void OnUpdate(ref SystemState state)
-    {
-        float dt = SystemAPI.Time.DeltaTime;
+//[UpdateInGroup(typeof(SimulationSystemGroup))]
+//public partial struct OtherPlayerLerpSystem : ISystem
+//{
+//    public void OnUpdate(ref SystemState state)
+//    {
+//        float dt = SystemAPI.Time.DeltaTime;
 
-        foreach (var (transform, target) in SystemAPI
-            .Query<RefRW<LocalTransform>, RefRO<TargetTransform>>()
-            .WithAll<IsOtherPlayerTag>())
-        {
-            transform.ValueRW.Position = math.lerp(transform.ValueRW.Position, target.ValueRO.Position, dt * 10f);
-            transform.ValueRW.Rotation = math.slerp(transform.ValueRW.Rotation, target.ValueRO.Rotation, dt * 10f);
-        }
-    }
-}
+//        foreach (var (transform, target) in SystemAPI
+//            .Query<RefRW<LocalTransform>, RefRO<TargetTransform>>()
+//            .WithAll<IsOtherPlayerTag>())
+//        {
+//            transform.ValueRW.Position = math.lerp(transform.ValueRW.Position, target.ValueRO.Position, dt * 10f);
+//            transform.ValueRW.Rotation = math.slerp(transform.ValueRW.Rotation, target.ValueRO.Rotation, dt * 10f);
+//        }
+//    }
+//}

@@ -17,7 +17,7 @@ public partial class FirstPersonPlayerInputsSystem : SystemBase
     protected override void OnCreate()
     {
         RequireForUpdate<FixedTickSystem.Singleton>();
-        RequireForUpdate(SystemAPI.QueryBuilder().WithAll<FirstPersonPlayer, FirstPersonPlayerInputs>().Build());
+        RequireForUpdate(SystemAPI.QueryBuilder().WithAll<FirstPersonPlayer, FirstPersonPlayerInputs, IsMainPlayerTag>().Build());
     }
 
     protected override void OnUpdate()
@@ -25,7 +25,7 @@ public partial class FirstPersonPlayerInputsSystem : SystemBase
         uint tick = SystemAPI.GetSingleton<FixedTickSystem.Singleton>().Tick;
 
 #if ENABLE_INPUT_SYSTEM
-        foreach (var (playerInputs, player) in SystemAPI.Query<RefRW<FirstPersonPlayerInputs>, FirstPersonPlayer>())
+        foreach (var (playerInputs, player) in SystemAPI.Query<RefRW<FirstPersonPlayerInputs>, FirstPersonPlayer>().WithAll<IsMainPlayerTag>())
         {
             playerInputs.ValueRW.MoveInput = new float2
             {
@@ -55,13 +55,13 @@ public partial struct FirstPersonPlayerVariableStepControlSystem : ISystem
     [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
-        state.RequireForUpdate(SystemAPI.QueryBuilder().WithAll<FirstPersonPlayer, FirstPersonPlayerInputs>().Build());
+        state.RequireForUpdate(SystemAPI.QueryBuilder().WithAll<FirstPersonPlayer, FirstPersonPlayerInputs, IsMainPlayerTag>().Build());
     }
 
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        foreach (var (playerInputs, player) in SystemAPI.Query<FirstPersonPlayerInputs, FirstPersonPlayer>().WithAll<Simulate>())
+        foreach (var (playerInputs, player) in SystemAPI.Query<FirstPersonPlayerInputs, FirstPersonPlayer>().WithAll<Simulate, IsMainPlayerTag>())
         {
             if (SystemAPI.HasComponent<FirstPersonCharacterControl>(player.ControlledCharacter))
             {
@@ -87,7 +87,7 @@ public partial struct FirstPersonPlayerFixedStepControlSystem : ISystem
     public void OnCreate(ref SystemState state)
     {
         state.RequireForUpdate<FixedTickSystem.Singleton>();
-        state.RequireForUpdate(SystemAPI.QueryBuilder().WithAll<FirstPersonPlayer, FirstPersonPlayerInputs>().Build());
+        state.RequireForUpdate(SystemAPI.QueryBuilder().WithAll<FirstPersonPlayer, FirstPersonPlayerInputs, IsMainPlayerTag>().Build());
     }
 
     [BurstCompile]
@@ -95,7 +95,7 @@ public partial struct FirstPersonPlayerFixedStepControlSystem : ISystem
     {
         uint tick = SystemAPI.GetSingleton<FixedTickSystem.Singleton>().Tick;
 
-        foreach (var (playerInputs, player) in SystemAPI.Query<FirstPersonPlayerInputs, FirstPersonPlayer>().WithAll<Simulate>())
+        foreach (var (playerInputs, player) in SystemAPI.Query<FirstPersonPlayerInputs, FirstPersonPlayer>().WithAll<Simulate, IsMainPlayerTag>())
         {
             if (SystemAPI.HasComponent<FirstPersonCharacterControl>(player.ControlledCharacter))
             {

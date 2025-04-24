@@ -61,29 +61,38 @@ public partial struct ActorEntityRegistrationSystem : ISystem
         var entityCommandBuffer = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>()
             .CreateCommandBuffer(state.WorldUnmanaged);
 
-        foreach(var (actorEntity, uninitializedTag, entity) in SystemAPI.Query<RefRW<ActorEntity>,
-                 RefRO<ActorEntityUninitialized>>().WithEntityAccess())
+        // Actor 엔티티 초기화
+        foreach (var (actorEntity, uninitializedTag, entity) in
+                SystemAPI.Query<RefRW<ActorEntity>, RefRO<ActorEntityUninitialized>>().WithEntityAccess())
         {
-            // register entity to ManagementSession's NativeArray register
+            // actor 등록
             actorEntity.ValueRW.actorID = ManagementSession.Instance.RegisterActorEntity(entity);
 
-            // remove & add appropriate tags
+            // 태그 관리
             entityCommandBuffer.RemoveComponent<ActorEntityUninitialized>(entity);
             entityCommandBuffer.AddComponent<ActorEntityInitialized>(entity);
 
-            // tag for player entity
-            if(actorEntity.ValueRO.actorType == ActorEntity.ActorType.Player)
+            // 플레이어 태그 추가
+            if (actorEntity.ValueRO.actorType == ActorEntity.ActorType.Player)
             {
+                Debug.Log($"[ActorEntityRegistration] Tagging player entity: {entity}");
                 entityCommandBuffer.AddComponent<ActorEntityPlayerTag>(entity);
+
+                // 메인 플레이어 태그도 추가 (필요한 경우)
+                if (!SystemAPI.HasComponent<IsMainPlayerTag>(entity))
+                {
+                    Debug.Log($"[ActorEntityRegistration] Adding IsMainPlayerTag to player: {entity}");
+                    entityCommandBuffer.AddComponent<IsMainPlayerTag>(entity);
+                }
             }
         }
 
-        foreach(var (ptag, localTransform) in SystemAPI.Query<RefRO<ActorEntityPlayerTag>, RefRO<LocalTransform>>())
+        // 카메라 위치 업데이트
+        // IsMainPlayerTag와 함께 쿼리하여 메인 플레이어 카메라만 처리
+        foreach (var (ptag, localTransform, _) in
+                SystemAPI.Query<RefRO<ActorEntityPlayerTag>, RefRO<LocalTransform>, RefRO<IsMainPlayerTag>>())
         {
-            // TODO : REMOVE THIS
-            //Camera.main.transform.position = localTransform.ValueRO.Position;
-            //Camera.main.transform.rotation = localTransform.ValueRO.Rotation;
-
+            Debug.Log($"[ActorEntityRegistration] Setting camera position to {localTransform.ValueRO.Position}");
             ManagementSession.Instance.SetCameraRigPosition(localTransform.ValueRO.Position);
             ManagementSession.Instance.SetCameraRigRotation(localTransform.ValueRO.Rotation);
         }

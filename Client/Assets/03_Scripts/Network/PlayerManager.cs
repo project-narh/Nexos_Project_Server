@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.VisualScripting;
-using UnityEditor.Search;
 using UnityEngine;
 using static S_PlayerList;
 
@@ -54,9 +53,11 @@ public class PlayerManager : MonoBehaviour
 
     IEnumerator Start_SpawnList(S_PlayerList listPacket)
     {
+        Debug.Log($"[Manager] 소환 시작");
         while (!isSpawn)
             yield return null;
 
+        Debug.Log($"[Manager] Player Spawn List {listPacket.players.Count}");
         var em = World.DefaultGameObjectInjectionWorld.EntityManager;
         foreach (S_PlayerList.Player p in listPacket.players)
         {
@@ -89,7 +90,13 @@ public class PlayerManager : MonoBehaviour
         float3 pos = new float3(packet.position.x, packet.position.y, packet.position.z);
         quaternion rot = new quaternion(packet.rotation.x, packet.rotation.y, packet.rotation.z, packet.rotation.w);
 
-        PlayerSpawner.SpawnPlayer(em, playerPrefabEntity, packet.playerId, packet.uid, pos, rot, false);
+        var entity = PlayerSpawner.SpawnPlayer(em, playerPrefabEntity, packet.playerId, packet.uid, pos, rot, false);
+
+        // 여기서도 추가적인 확인이 필요하면 진행
+        if (entity != Entity.Null)
+        {
+            Debug.Log($"[PlayerManager] 다른 플레이어 등장: {packet.playerId}");
+        }
     }
 }
 

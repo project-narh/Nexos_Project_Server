@@ -1,3 +1,4 @@
+using System.Linq;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
@@ -19,22 +20,25 @@ partial struct SectionSystem : ISystem
     {
         NativeHashSet<Entity> toLoad = new NativeHashSet<Entity>(1, Allocator.Temp);
 
-        // 쿼리빌더로 쿼리를 만든 다음 이렇게 엔티티, 컴포넌트데이터 배열들을 만들면
-        // 평소와 비슷한 느낌으로 반복문을 만들 수 있음
-        var sectionQuery    = SystemAPI.QueryBuilder().WithAll<Boundary, SceneSectionData>().Build();
+        var sectionQuery = SystemAPI.QueryBuilder().WithAll<Boundary, SceneSectionData>().Build();
         var sectionEntities = sectionQuery.ToEntityArray(Allocator.Temp);
-        var boundaryArray   = sectionQuery.ToComponentDataArray<Boundary>(Allocator.Temp);
+        var boundaryArray = sectionQuery.ToComponentDataArray<Boundary>(Allocator.Temp);
 
-        // 샘플과는 달리 localTransform 외에도 층 값이 필요하므로 relevant 액세스가 필요함
-        foreach (var (transform, relevant) in SystemAPI.Query<RefRO<LocalTransform>, RefRO<Relevant>>())
+        // 플레이어 존재 여부 플래그
+        bool playerFound = false;
+
+        // 메인 플레이어 위치 기반 섹션 로딩
+        foreach (var (transform, relevant, _) in
+                 SystemAPI.Query<RefRO<LocalTransform>, RefRO<Relevant>, RefRO<IsMainPlayerTag>>())
         {
+            playerFound = true;
+
             for (int index = 0; index < boundaryArray.Length; ++index)
             {
                 Color debugColor = new Color(1f, 0f, 0f);
-                
-                // 플레이어와 같은 층의 섹션인지 우선 확인하고, 섹션의 네모 범위 내에 존재하는지 확인
-                // sectionFloor 가 -1일 경우에는 층 조건을 무시하고 늘 플레이어와 같은 층인 것으로 간주
-                if (boundaryArray[index].sectionFloor == -1 || boundaryArray[index].sectionFloor == relevant.ValueRO.currentFloor)
+
+                if (boundaryArray[index].sectionFloor == -1 ||
+                    boundaryArray[index].sectionFloor == relevant.ValueRO.currentFloor)
                 {
                     if (CheckInsideSquare(transform.ValueRO.Position, boundaryArray[index].sectionBoundaries))
                     {
@@ -42,17 +46,31 @@ partial struct SectionSystem : ISystem
                         debugColor = new Color(0f, 0.5f, 0f);
                     }
                 }
-                
-                // 네모난 범위 기즈모 출력
+
                 DrawBoundariesXZ(boundaryArray[index].sectionBoundaries, debugColor);
             }
         }
 
-        // 로드 요청에 따라 섹션 로드/언로드
+        // 플레이어가 없으면 기본 섹션 로드 (Count() 대신 bool 플래그 사용)
+        if (!playerFound)
+        {
+            // 메인 플레이어 없이도 시스템이 돌아가도록 기본 섹션 로드
+            for (int index = 0; index < boundaryArray.Length; ++index)
+            {
+                if (boundaryArray[index].sectionFloor == 1 || boundaryArray[index].sectionFloor == -1)
+                {
+                    toLoad.Add(sectionEntities[index]);
+                }
+            }
+        }
+
+        // 섹션 로드/언로드
         foreach (Entity sectionEntity in sectionEntities)
         {
             var sectionState = SceneSystem.GetSectionStreamingState(state.WorldUnmanaged, sectionEntity);
-            if (toLoad.Contains(sectionEntity))
+            bool shouldLoad = toLoad.Contains(sectionEntity);
+
+            if (shouldLoad)
             {
                 if (sectionState == SceneSystem.SectionStreamingState.Unloaded)
                 {
