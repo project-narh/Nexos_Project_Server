@@ -36,7 +36,7 @@ public class PlayerManager : MonoBehaviour
     {
         var em = World.DefaultGameObjectInjectionWorld.EntityManager;
         var query = em.CreateEntityQuery(typeof(PlayerPrefab));
-
+        //PlayerPrefab가 붙은 엔티티 생길때 까지 대기
         while (query.CalculateEntityCount() != 1)
             yield return null;
 
