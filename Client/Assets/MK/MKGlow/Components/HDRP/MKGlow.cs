@@ -196,7 +196,7 @@ namespace MK.Glow.HDRP
 
         public bool IsActive()
         {
-            if(workflow == Workflow.Selective && (UnityEngine.Rendering.GraphicsSettings.renderPipelineAsset || PipelineProperties.xrEnabled))
+            if(workflow == Workflow.Selective && (PipelineProperties.scriptableRenderPipelineActive || PipelineProperties.xrEnabled))
                 return false;
             else
                 return Compatibility.IsSupported && (bloomIntensity.value > 0 || allowLensFlare.value && (lensFlareGhostIntensity.value > 0 || lensFlareHaloIntensity.value > 0) || allowGlare.value && glareIntensity.value > 0 && (glareSample0Intensity.value > 0 || glareSample1Intensity.value > 0 || glareSample2Intensity.value > 0 || glareSample3Intensity.value > 0));

@@ -84,7 +84,7 @@ MonoBehaviour:
     probeVolumeBlendingMemoryBudget: 128
     supportRayTracing: 1
     supportVFXRayTracing: 1
-    supportedRayTracingMode: 3
+    supportedRayTracingMode: 1
     lightLoopSettings:
       cookieAtlasSize: 512
       cookieFormat: 74
@@ -171,13 +171,13 @@ MonoBehaviour:
       TAAUInjectionPoint: 0
       STPInjectionPoint: 0
       defaultInjectionPoint: 2
-      DLSSUseOptimalSettings: 0
+      DLSSUseOptimalSettings: 1
       DLSSSharpness: 0
       FSR2EnableSharpness: 0
       FSR2Sharpness: 0
       FSR2UseOptimalSettings: 0
       FSR2QualitySetting: 0
-      FSR2InjectionPoint: 0
+      FSR2InjectionPoint: 2
       fsrOverrideSharpness: 0
       fsrSharpness: 0.92
       maxPercentage: 100

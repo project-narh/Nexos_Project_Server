@@ -38,90 +38,40 @@ MonoBehaviour:
   m_LightingScenarios:
   - Default
   cellDescs:
-    m_Keys: 00000000
-    m_Values:
-    - position: {x: -2, y: 0, z: -1}
-      index: 0
-      probeCount: 48960
-      minSubdiv: 0
-      indexChunkCount: 91
-      shChunkCount: 6
-      bricksCount: 765
-      indirectionEntryInfo:
-      - positionInBricks: {x: -54, y: 0, z: -27}
-        minSubdiv: 0
-        minBrickPos: {x: 0, y: 0, z: 0}
-        maxBrickPosPlusOne: {x: 28, y: 28, z: 28}
-        hasMinMax: 1
-        hasOnlyBiggerBricks: 0
+    m_Keys: 
+    m_Values: []
   m_SerializedPerSceneCellList:
   - sceneGUID: 441d257c40ff03c4fa6f8eb28761d7d2
-    cellList: 00000000
+    cellList: 
+  - sceneGUID: 4354870faab23cb49862cf2fb2b5c856
+    cellList: 
   cellSharedDataAsset:
-    m_AssetGUID: 646c74a6bd86ed4468a5b2031066ca0c
-    m_StreamableAssetPath: APVStreamingAssets\fc7d80ad6486eed42a932aa7e5272af4\646c74a6bd86ed4468a5b2031066ca0c.bytes
-    m_ElementSize: 73728
+    m_AssetGUID: 
+    m_StreamableAssetPath: 
+    m_ElementSize: 0
     m_StreamableCellDescs:
-      m_Keys: 00000000
-      m_Values:
-      - offset: 0
-        elementCount: 6
-    m_Asset: {fileID: 4900000, guid: 646c74a6bd86ed4468a5b2031066ca0c, type: 3}
+      m_Keys: 
+      m_Values: []
+    m_Asset: {fileID: 0}
   scenarios:
-    m_Keys:
-    - Default
-    m_Values:
-    - sceneHash: 1689128355
-      cellDataAsset:
-        m_AssetGUID: b9aaf2c632267d54fa1de7360f43dbe3
-        m_StreamableAssetPath: APVStreamingAssets\fc7d80ad6486eed42a932aa7e5272af4\b9aaf2c632267d54fa1de7360f43dbe3.bytes
-        m_ElementSize: 131072
-        m_StreamableCellDescs:
-          m_Keys: 00000000
-          m_Values:
-          - offset: 0
-            elementCount: 6
-        m_Asset: {fileID: 4900000, guid: b9aaf2c632267d54fa1de7360f43dbe3, type: 3}
-      cellOptionalDataAsset:
-        m_AssetGUID: f21de58e3204c754a83f41f4589aa374
-        m_StreamableAssetPath: APVStreamingAssets\fc7d80ad6486eed42a932aa7e5272af4\f21de58e3204c754a83f41f4589aa374.bytes
-        m_ElementSize: 131072
-        m_StreamableCellDescs:
-          m_Keys: 00000000
-          m_Values:
-          - offset: 0
-            elementCount: 6
-        m_Asset: {fileID: 4900000, guid: f21de58e3204c754a83f41f4589aa374, type: 3}
-      cellProbeOcclusionDataAsset:
-        m_AssetGUID: 
-        m_StreamableAssetPath: APVStreamingAssets\fc7d80ad6486eed42a932aa7e5272af4\.bytes
-        m_ElementSize: 0
-        m_StreamableCellDescs:
-          m_Keys: 00000000
-          m_Values:
-          - offset: 0
-            elementCount: 6
-        m_Asset: {fileID: 0}
+    m_Keys: []
+    m_Values: []
   cellBricksDataAsset:
-    m_AssetGUID: e31b86d1098e05341aca7c82edc406f9
-    m_StreamableAssetPath: APVStreamingAssets\fc7d80ad6486eed42a932aa7e5272af4\e31b86d1098e05341aca7c82edc406f9.bytes
-    m_ElementSize: 16
+    m_AssetGUID: 
+    m_StreamableAssetPath: 
+    m_ElementSize: 0
     m_StreamableCellDescs:
-      m_Keys: 00000000
-      m_Values:
-      - offset: 0
-        elementCount: 765
-    m_Asset: {fileID: 4900000, guid: e31b86d1098e05341aca7c82edc406f9, type: 3}
+      m_Keys: 
+      m_Values: []
+    m_Asset: {fileID: 0}
   cellSupportDataAsset:
-    m_AssetGUID: ecc4394438fcf384cb8bded100b23b3d
-    m_StreamableAssetPath: APVStreamingAssets\fc7d80ad6486eed42a932aa7e5272af4\ecc4394438fcf384cb8bded100b23b3d.bytes
-    m_ElementSize: 163840
+    m_AssetGUID: 
+    m_StreamableAssetPath: 
+    m_ElementSize: 0
     m_StreamableCellDescs:
-      m_Keys: 00000000
-      m_Values:
-      - offset: 0
-        elementCount: 6
-    m_Asset: {fileID: 4900000, guid: ecc4394438fcf384cb8bded100b23b3d, type: 3}
+      m_Keys: 
+      m_Values: []
+    m_Asset: {fileID: 0}
   chunkSizeInBricks: 128
   maxCellPosition: {x: -1, y: 1, z: 0}
   minCellPosition: {x: -2, y: 0, z: -1}
@@ -178,13 +128,13 @@ MonoBehaviour:
     - 441d257c40ff03c4fa6f8eb28761d7d2
     - 4354870faab23cb49862cf2fb2b5c856
     m_Values:
+    - hasProbeVolume: 0
+      bakeScene: 1
+      bounds:
+        m_Center: {x: 0, y: 0, z: 0}
+        m_Extent: {x: 81, y: 81, z: 81}
     - hasProbeVolume: 1
       bakeScene: 1
       bounds:
         m_Center: {x: -121.5, y: 40.5, z: -40.5}
         m_Extent: {x: 40.5, y: 40.5, z: 40.5}
-    - hasProbeVolume: 1
-      bakeScene: 1
-      bounds:
-        m_Center: {x: 0, y: 0, z: 0}
-        m_Extent: {x: 81, y: 81, z: 81}

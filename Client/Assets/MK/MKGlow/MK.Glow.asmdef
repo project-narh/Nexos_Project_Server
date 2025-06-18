@@ -1,5 +1,6 @@
 {
     "name": "MK.Glow",
+    "rootNamespace": "",
     "references": [
         "GUID:d60799ab2a985554ea1a39cd38695018",
         "GUID:457756d89b35d2941b3e7b37b4ece6f1",
@@ -13,6 +14,12 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.modules.vr",
+            "expression": "0",
+            "define": "MK_VR_ENABLED"
+        }
+    ],
     "noEngineReferences": false
 }

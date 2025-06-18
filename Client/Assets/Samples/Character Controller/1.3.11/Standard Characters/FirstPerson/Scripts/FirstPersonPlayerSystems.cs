@@ -17,7 +17,7 @@ public partial class FirstPersonPlayerInputsSystem : SystemBase
     protected override void OnCreate()
     {
         RequireForUpdate<FixedTickSystem.Singleton>();
-        RequireForUpdate(SystemAPI.QueryBuilder().WithAll<FirstPersonPlayer>().Build());
+        RequireForUpdate(SystemAPI.QueryBuilder().WithAll<FirstPersonPlayer, FirstPersonPlayerInputs>().Build());
     }
 
     protected override void OnUpdate()
@@ -40,7 +40,6 @@ public partial class FirstPersonPlayerInputsSystem : SystemBase
                 playerInputs.ValueRW.JumpPressed.Set(tick);
             }
         }
-        
 #endif
     }
 }
@@ -56,7 +55,7 @@ public partial struct FirstPersonPlayerVariableStepControlSystem : ISystem
     [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
-        state.RequireForUpdate(SystemAPI.QueryBuilder().WithAll<FirstPersonPlayer>().Build());
+        state.RequireForUpdate(SystemAPI.QueryBuilder().WithAll<FirstPersonPlayer, FirstPersonPlayerInputs>().Build());
     }
 
     [BurstCompile]
@@ -88,7 +87,7 @@ public partial struct FirstPersonPlayerFixedStepControlSystem : ISystem
     public void OnCreate(ref SystemState state)
     {
         state.RequireForUpdate<FixedTickSystem.Singleton>();
-        state.RequireForUpdate(SystemAPI.QueryBuilder().WithAll<FirstPersonPlayer>().Build());
+        state.RequireForUpdate(SystemAPI.QueryBuilder().WithAll<FirstPersonPlayer, FirstPersonPlayerInputs>().Build());
     }
 
     [BurstCompile]

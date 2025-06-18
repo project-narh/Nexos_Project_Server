@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace MK.Glow
 {
-	#if UNITY_2018_3_OR_NEWER
+	#if UNITY_2018_3_OR_NEWER && MK_VR_ENABLED
     #if ENABLE_VR
     using XRSettings = UnityEngine.XR.XRSettings;
     #endif
@@ -38,7 +38,7 @@ namespace MK.Glow
 		/// </summary>
 		internal RenderContext()
 		{
-			#if UNITY_2018_3_OR_NEWER
+			#if UNITY_2018_3_OR_NEWER && MK_VR_ENABLED
 			#if ENABLE_VR
 			_descriptor = XRSettings.enabled ? XRSettings.eyeTextureDesc : new RenderTextureDescriptor();
 			#else
@@ -84,7 +84,7 @@ namespace MK.Glow
 			if(cameraData.GetOverwriteDescriptor())
 			{
 				_descriptor.dimension = cameraData.GetOverwriteDimension();
-				#if ENABLE_VR
+				#if ENABLE_VR && MK_VR_ENABLED
 				_descriptor.vrUsage = cameraData.GetStereoEnabled() ? XRSettings.eyeTextureDesc.vrUsage : VRTextureUsage.None;
 				#else
 				_descriptor.vrUsage = VRTextureUsage.None;
@@ -93,7 +93,7 @@ namespace MK.Glow
 			}
 			else
 			{
-				#if UNITY_2018_3_OR_NEWER
+				#if UNITY_2018_3_OR_NEWER && MK_VR_ENABLED
 				#if ENABLE_VR
 				_descriptor.dimension = cameraData.GetStereoEnabled() && !cameraData.GetTargetTexture() ? XRSettings.eyeTextureDesc.dimension : UnityEngine.Rendering.TextureDimension.Tex2D;
 				_descriptor.vrUsage = cameraData.GetStereoEnabled() && !cameraData.GetTargetTexture() ? XRSettings.eyeTextureDesc.vrUsage : VRTextureUsage.None;

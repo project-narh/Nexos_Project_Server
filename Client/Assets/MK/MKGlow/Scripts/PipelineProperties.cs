@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace MK.Glow
 {
-    #if UNITY_2018_3_OR_NEWER
+    #if UNITY_2018_3_OR_NEWER && MK_VR_ENABLED
     using XRSettings = UnityEngine.XR.XRSettings;
     #endif
 
@@ -31,7 +31,7 @@ namespace MK.Glow
         #endif
         #pragma warning restore CS0618
         #if UNITY_2018_3_OR_NEWER
-        #if ENABLE_VR
+        #if ENABLE_VR && MK_VR_ENABLED
         internal static bool xrEnabled { get{ return XRSettings.enabled; } }
         internal static bool singlePassStereoDoubleWideEnabled { get{ return XRSettings.enabled && XRSettings.stereoRenderingMode == XRSettings.StereoRenderingMode.SinglePass; } }
         internal static bool singlePassStereoInstancedEnabled { get{ return XRSettings.enabled && (XRSettings.stereoRenderingMode == XRSettings.StereoRenderingMode.SinglePassInstanced || XRSettings.stereoRenderingMode == XRSettings.StereoRenderingMode.SinglePassMultiview); } }

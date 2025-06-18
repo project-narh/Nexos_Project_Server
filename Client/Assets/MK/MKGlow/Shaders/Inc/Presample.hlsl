@@ -35,7 +35,7 @@
 	static const float2 UV_HALF = half2(0.5, 0.5);
 
 	#ifdef MK_LENS_FLARE
-		UNIFORM_SAMPLER_AND_TEXTURE_2D(_LensFlareColorRamp)
+		UNIFORM_SAMPLER_AND_TEXTURE_2D_NO_SCALE(_LensFlareColorRamp)
 		
 		#ifdef COMPUTE_SHADER
 			UNIFORM_RWTEXTURE_2D(_LensFlareTargetTex)
@@ -154,9 +154,9 @@
 			#endif
 
 			#ifdef UNITY_SINGLE_PASS_STEREO
-				lensFlare *= SampleTex2D(PASS_TEXTURE_2D(_LensFlareColorRamp, sampler_linear_clamp_LensFlareColorRamp), abs(length(UV_HALF - LENS_FLARE_UV - STEREO_OFFSET)) / length(UV_HALF));
+				lensFlare *= SampleTex2DNoScale(PASS_TEXTURE_2D(_LensFlareColorRamp, sampler_linear_clamp_LensFlareColorRamp), abs(length(UV_HALF - LENS_FLARE_UV - STEREO_OFFSET)) / length(UV_HALF));
 			#else
-				lensFlare *= SampleTex2D(PASS_TEXTURE_2D(_LensFlareColorRamp, sampler_linear_clamp_LensFlareColorRamp), abs(length(UV_HALF - LENS_FLARE_UV)) / length(UV_HALF));
+				lensFlare *= SampleTex2DNoScale(PASS_TEXTURE_2D(_LensFlareColorRamp, sampler_linear_clamp_LensFlareColorRamp), abs(length(UV_HALF - LENS_FLARE_UV)) / length(UV_HALF));
 			#endif
 			#ifdef COLORSPACE_GAMMA
 				lensFlare = GammaToLinearSpace4(lensFlare);

@@ -7,8 +7,6 @@ using Unity.Physics;
 using Unity.Transforms;
 using Unity.CharacterController;
 using Unity.Burst.Intrinsics;
-using System.Collections.Generic;
-using UnityEngine;
 
 [UpdateInGroup(typeof(KinematicCharacterPhysicsUpdateGroup))]
 [BurstCompile]
@@ -85,14 +83,9 @@ public partial struct FirstPersonCharacterVariableUpdateSystem : ISystem
     private FirstPersonCharacterUpdateContext _context;
     private KinematicCharacterUpdateContext _baseContext;
 
-    private static Dictionary<Entity, float3> lastPositions = new();
-    private static Dictionary<Entity, quaternion> lastRotations = new();
-    private float elapsedTime;
-
     [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
-        elapsedTime = 0;
         _characterQuery = KinematicCharacterUtilities.GetBaseCharacterQueryBuilder()
             .WithAll<
                 FirstPersonCharacterComponent,
@@ -110,7 +103,6 @@ public partial struct FirstPersonCharacterVariableUpdateSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-
         _context.OnSystemUpdate(ref state);
         _baseContext.OnSystemUpdate(ref state, SystemAPI.Time, SystemAPI.GetSingleton<PhysicsWorldSingleton>());
 
@@ -119,73 +111,13 @@ public partial struct FirstPersonCharacterVariableUpdateSystem : ISystem
             Context = _context,
             BaseContext = _baseContext,
         };
-        //variableUpdateJob.ScheduleParallel();
+        variableUpdateJob.ScheduleParallel();
 
         FirstPersonCharacterViewJob viewJob = new FirstPersonCharacterViewJob
         {
             FirstPersonCharacterLookup = SystemAPI.GetComponentLookup<FirstPersonCharacterComponent>(true),
         };
-        //viewJob.ScheduleParallel();
-        var handle1 = variableUpdateJob.ScheduleParallel(state.Dependency);
-        var handle2 = viewJob.ScheduleParallel(handle1);
-        state.Dependency = handle2;
-
-        //elapsedTime += SystemAPI.Time.DeltaTime;
-        //if (elapsedTime < 0.1f) return;
-        //elapsedTime = 0f;
-
-        //var em = state.EntityManager;
-
-        //var query = SystemAPI.QueryBuilder()
-        //    .WithAll<LocalTransform, IsMainPlayerTag>()
-        //    .Build();
-
-        //var transformLookup = SystemAPI.GetComponentLookup<LocalTransform>(true);
-        //var lastTransformLookup = SystemAPI.GetComponentLookup<LastTransform>(false);
-
-        //var entities = query.ToEntityArray(Allocator.Temp);
-
-        //foreach (var entity in entities)
-        //{
-        //    if (!transformLookup.HasComponent(entity))
-        //        continue;
-
-        //    var transform = transformLookup[entity];
-        //    float3 pos = transform.Position;
-        //    quaternion rot = transform.Rotation;
-
-        //    bool changed = true;
-
-        //    if (lastTransformLookup.HasComponent(entity))
-        //    {
-        //        var last = lastTransformLookup[entity];
-        //        float posDiff = math.distance(pos, last.Position);
-        //        float rotDiff = math.degrees(math.acos(math.clamp(math.dot(rot, last.Rotation), -1f, 1f)));
-
-        //        changed = posDiff > 0.001f || rotDiff > 0.5f;
-        //    }
-
-        //    if (changed)
-        //    {
-        //        var movePacket = new C_Move
-        //        {
-        //            position = new Vector3(pos.x, pos.y, pos.z),
-        //            rotation = new Quaternion(rot.value.x, rot.value.y, rot.value.z, rot.value.w)
-        //        };
-
-        //        NetworkManager.Instance.Get_UDPconnect().SendToServer(movePacket.Write(), (ushort)PacketID.C_Move);
-
-        //        if (lastTransformLookup.HasComponent(entity))
-        //        {
-        //            lastTransformLookup[entity] = new LastTransform { Position = pos, Rotation = rot };
-        //        }
-        //        else
-        //        {
-        //            em.AddComponentData(entity, new LastTransform { Position = pos, Rotation = rot });
-        //        }
-        //    }
-        //}
-        //entities.Dispose();
+        viewJob.ScheduleParallel();
     }
 
     [BurstCompile]
@@ -214,32 +146,15 @@ public partial struct FirstPersonCharacterVariableUpdateSystem : ISystem
     [WithAll(typeof(Simulate))]
     public partial struct FirstPersonCharacterViewJob : IJobEntity
     {
-        [ReadOnly] public ComponentLookup<FirstPersonCharacterComponent> FirstPersonCharacterLookup;
+        [ReadOnly]
+        public ComponentLookup<FirstPersonCharacterComponent> FirstPersonCharacterLookup;
 
         void Execute(ref LocalTransform localTransform, in FirstPersonCharacterView characterView)
         {
-            if (FirstPersonCharacterLookup.HasComponent(characterView.CharacterEntity) &&
-                FirstPersonCharacterLookup.TryGetComponent(characterView.CharacterEntity, out var character))
+            if (FirstPersonCharacterLookup.TryGetComponent(characterView.CharacterEntity, out FirstPersonCharacterComponent character))
             {
                 localTransform.Rotation = character.ViewLocalRotation;
             }
         }
     }
 }
-
-//[UpdateInGroup(typeof(SimulationSystemGroup))]
-//public partial struct OtherPlayerLerpSystem : ISystem
-//{
-//    public void OnUpdate(ref SystemState state)
-//    {
-//        float dt = SystemAPI.Time.DeltaTime;
-
-//        foreach (var (transform, target) in SystemAPI
-//            .Query<RefRW<LocalTransform>, RefRO<TargetTransform>>()
-//            .WithAll<IsOtherPlayerTag>())
-//        {
-//            transform.ValueRW.Position = math.lerp(transform.ValueRW.Position, target.ValueRO.Position, dt * 10f);
-//            transform.ValueRW.Rotation = math.slerp(transform.ValueRW.Rotation, target.ValueRO.Rotation, dt * 10f);
-//        }
-//    }
-//}

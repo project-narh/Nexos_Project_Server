@@ -18,7 +18,7 @@ namespace MK.Glow.Editor.InstallWizard
     public sealed class InstallWizard : EditorWindow
     {
         #pragma warning disable CS0414
-        private static readonly string _version = "4.9.1";
+        private static readonly string _version = "4.9.2";
         #pragma warning restore CS0414
         private static readonly Vector2Int _referenceResolution = new Vector2Int(2560, 1440);
         private static float _sizeScale;

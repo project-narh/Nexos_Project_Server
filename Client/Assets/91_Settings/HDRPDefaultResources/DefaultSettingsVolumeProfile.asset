@@ -964,10 +964,8 @@ MonoBehaviour:
   - {fileID: -9027663073096222836}
   - {fileID: -256069439254821700}
   - {fileID: 6831431617017425447}
-  - {fileID: -2219571036641957416}
   - {fileID: 8281320685180012460}
-  - {fileID: -5586976659166012649}
-  - {fileID: -5262997449991025767}
+  - {fileID: 2808915210333590199}
 --- !u!114 &246079930342161156
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1955,6 +1953,213 @@ MonoBehaviour:
   ambientProbeDimmer:
     m_OverrideState: 1
     m_Value: 0.5
+--- !u!114 &2808915210333590199
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c7ae4e42d48084ebd56d6e4612577c, type: 3}
+  m_Name: MKGlow
+  m_EditorClassIdentifier: 
+  active: 1
+  showEditorMainBehavior:
+    m_OverrideState: 1
+    m_Value: 1
+  showEditorBloomBehavior:
+    m_OverrideState: 1
+    m_Value: 0
+  showEditorLensSurfaceBehavior:
+    m_OverrideState: 1
+    m_Value: 0
+  showEditorLensFlareBehavior:
+    m_OverrideState: 1
+    m_Value: 0
+  showEditorGlareBehavior:
+    m_OverrideState: 1
+    m_Value: 0
+  isInitialized:
+    m_OverrideState: 1
+    m_Value: 0
+  allowGeometryShaders:
+    m_OverrideState: 1
+    m_Value: 1
+  allowComputeShaders:
+    m_OverrideState: 1
+    m_Value: 1
+  renderPriority:
+    m_OverrideState: 1
+    m_Value: 1
+  debugView:
+    m_OverrideState: 1
+    m_Value: 0
+  quality:
+    m_OverrideState: 1
+    m_Value: 2
+  antiFlickerMode:
+    m_OverrideState: 1
+    m_Value: 1
+  workflow:
+    m_OverrideState: 1
+    m_Value: 2
+  selectiveRenderLayerMask:
+    m_OverrideState: 1
+    m_Value:
+      serializedVersion: 2
+      m_Bits: 4294967295
+  anamorphicRatio:
+    m_OverrideState: 1
+    m_Value: 0
+  lumaScale:
+    m_OverrideState: 1
+    m_Value: 0.5
+  blooming:
+    m_OverrideState: 1
+    m_Value: 0
+  bloomThreshold:
+    m_OverrideState: 1
+    m_Value:
+      minValue: 1.25
+      maxValue: 15
+  bloomScattering:
+    m_OverrideState: 1
+    m_Value: 7
+  bloomIntensity:
+    m_OverrideState: 1
+    m_Value: 0
+  allowLensSurface:
+    m_OverrideState: 1
+    m_Value: 0
+  lensSurfaceDirtTexture:
+    m_OverrideState: 1
+    m_Value: {fileID: 0}
+  lensSurfaceDirtIntensity:
+    m_OverrideState: 1
+    m_Value: 0
+  lensSurfaceDiffractionTexture:
+    m_OverrideState: 1
+    m_Value: {fileID: 0}
+  lensSurfaceDiffractionIntensity:
+    m_OverrideState: 1
+    m_Value: 0
+  allowLensFlare:
+    m_OverrideState: 1
+    m_Value: 0
+  lensFlareStyle:
+    m_OverrideState: 1
+    m_Value: 1
+  lensFlareGhostFade:
+    m_OverrideState: 1
+    m_Value: 10
+  lensFlareGhostIntensity:
+    m_OverrideState: 1
+    m_Value: 0
+  lensFlareThreshold:
+    m_OverrideState: 1
+    m_Value:
+      minValue: 1.3
+      maxValue: 10
+  lensFlareScattering:
+    m_OverrideState: 1
+    m_Value: 5
+  lensFlareColorRamp:
+    m_OverrideState: 1
+    m_Value: {fileID: 0}
+  lensFlareChromaticAberration:
+    m_OverrideState: 1
+    m_Value: 53
+  lensFlareGhostCount:
+    m_OverrideState: 1
+    m_Value: 3
+  lensFlareGhostDispersal:
+    m_OverrideState: 1
+    m_Value: 0.6
+  lensFlareHaloFade:
+    m_OverrideState: 1
+    m_Value: 2
+  lensFlareHaloIntensity:
+    m_OverrideState: 1
+    m_Value: 0
+  lensFlareHaloSize:
+    m_OverrideState: 1
+    m_Value: 0.4
+  allowGlare:
+    m_OverrideState: 1
+    m_Value: 0
+  glareBlend:
+    m_OverrideState: 1
+    m_Value: 0.33
+  glareIntensity:
+    m_OverrideState: 1
+    m_Value: 1
+  glareAngle:
+    m_OverrideState: 1
+    m_Value: 0
+  glareThreshold:
+    m_OverrideState: 1
+    m_Value:
+      minValue: 1.25
+      maxValue: 10
+  glareStreaks:
+    m_OverrideState: 1
+    m_Value: 4
+  glareScattering:
+    m_OverrideState: 1
+    m_Value: 2
+  glareStyle:
+    m_OverrideState: 1
+    m_Value: 4
+  glareSample0Scattering:
+    m_OverrideState: 1
+    m_Value: 5
+  glareSample0Angle:
+    m_OverrideState: 1
+    m_Value: 0
+  glareSample0Intensity:
+    m_OverrideState: 1
+    m_Value: 0
+  glareSample0Offset:
+    m_OverrideState: 1
+    m_Value: 0
+  glareSample1Scattering:
+    m_OverrideState: 1
+    m_Value: 5
+  glareSample1Angle:
+    m_OverrideState: 1
+    m_Value: 45
+  glareSample1Intensity:
+    m_OverrideState: 1
+    m_Value: 0
+  glareSample1Offset:
+    m_OverrideState: 1
+    m_Value: 0
+  glareSample2Scattering:
+    m_OverrideState: 1
+    m_Value: 5
+  glareSample2Angle:
+    m_OverrideState: 1
+    m_Value: 90
+  glareSample2Intensity:
+    m_OverrideState: 1
+    m_Value: 0
+  glareSample2Offset:
+    m_OverrideState: 1
+    m_Value: 0
+  glareSample3Scattering:
+    m_OverrideState: 1
+    m_Value: 5
+  glareSample3Angle:
+    m_OverrideState: 1
+    m_Value: 135
+  glareSample3Intensity:
+    m_OverrideState: 1
+    m_Value: 0
+  glareSample3Offset:
+    m_OverrideState: 1
+    m_Value: 0
 --- !u!114 &2914715647161045896
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -2072,6 +2277,32 @@ MonoBehaviour:
   m_RayMaxIterationsRT:
     m_OverrideState: 1
     m_Value: 48
+--- !u!114 &3004437149889375491
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: TestComponent2
+  m_EditorClassIdentifier: Unity.RenderPipelines.HighDefinition.Editor.Tests:UnityEditor.Rendering.HighDefinition.Tests:CustomPostProcessComponentListTest/TestComponent2
+  active: 1
+--- !u!114 &3833961985295987526
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: TestComponent
+  m_EditorClassIdentifier: Unity.RenderPipelines.HighDefinition.Editor.Tests:UnityEditor.Rendering.HighDefinition.Tests:CustomPostProcessComponentListTest/TestComponent
+  active: 1
 --- !u!114 &5102456730658776426
 MonoBehaviour:
   m_ObjectHideFlags: 3
