@@ -86,3 +86,7 @@ crashlytics-build.properties
 
 # Visual studio
 !/Server_Project/Server.sln
+# Server_Project 폴더만 예외
+!/Server_Project/
+!/Server_Project/*.sln
+!/Server_Project/*.csproj
