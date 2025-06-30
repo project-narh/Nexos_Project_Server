@@ -8,7 +8,8 @@ namespace Server.UDP.Room
         private HashSet<UDPSession> sessions = new HashSet<UDPSession>();
         object _lock = new object();
 
-        Vector3 Spawn_Pos = new Vector3(-118.981f, 17.977f, -31.193f);
+        //Vector3 Spawn_Pos = new Vector3(-118.981f, 17.977f, -31.193f);
+        Vector3 Spawn_Pos = new Vector3(-10.368f, 2f, -4.657f);
         Quaternion Spawn_Rot = new Quaternion(0f, 0f, 0f, 1f);
 
         public async Task Enter(UDPSession session)

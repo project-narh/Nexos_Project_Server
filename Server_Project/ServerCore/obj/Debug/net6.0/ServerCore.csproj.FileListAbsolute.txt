@@ -34,3 +34,15 @@ D:\Git\Nexos_Project_Server\Server_Project\ServerCore\obj\Debug\net6.0\ServerCor
 D:\Git\Nexos_Project_Server\Server_Project\ServerCore\obj\Debug\net6.0\refint\ServerCore.dll
 D:\Git\Nexos_Project_Server\Server_Project\ServerCore\obj\Debug\net6.0\ServerCore.pdb
 D:\Git\Nexos_Project_Server\Server_Project\ServerCore\obj\Debug\net6.0\ref\ServerCore.dll
+C:\Users\PC\Desktop\Nexos_Project_Server\Server_Project\ServerCore\bin\Debug\net6.0\ServerCore.deps.json
+C:\Users\PC\Desktop\Nexos_Project_Server\Server_Project\ServerCore\bin\Debug\net6.0\ServerCore.dll
+C:\Users\PC\Desktop\Nexos_Project_Server\Server_Project\ServerCore\bin\Debug\net6.0\ServerCore.pdb
+C:\Users\PC\Desktop\Nexos_Project_Server\Server_Project\ServerCore\obj\Debug\net6.0\ServerCore.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PC\Desktop\Nexos_Project_Server\Server_Project\ServerCore\obj\Debug\net6.0\ServerCore.AssemblyInfoInputs.cache
+C:\Users\PC\Desktop\Nexos_Project_Server\Server_Project\ServerCore\obj\Debug\net6.0\ServerCore.AssemblyInfo.cs
+C:\Users\PC\Desktop\Nexos_Project_Server\Server_Project\ServerCore\obj\Debug\net6.0\ServerCore.csproj.CoreCompileInputs.cache
+C:\Users\PC\Desktop\Nexos_Project_Server\Server_Project\ServerCore\obj\Debug\net6.0\ServerCore.sourcelink.json
+C:\Users\PC\Desktop\Nexos_Project_Server\Server_Project\ServerCore\obj\Debug\net6.0\ServerCore.dll
+C:\Users\PC\Desktop\Nexos_Project_Server\Server_Project\ServerCore\obj\Debug\net6.0\refint\ServerCore.dll
+C:\Users\PC\Desktop\Nexos_Project_Server\Server_Project\ServerCore\obj\Debug\net6.0\ServerCore.pdb
+C:\Users\PC\Desktop\Nexos_Project_Server\Server_Project\ServerCore\obj\Debug\net6.0\ref\ServerCore.dll

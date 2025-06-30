@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Git\\Nexos_Project_Server\\Server_Project\\ServerCore\\ServerCore.csproj",
+      "projectUniqueName": "C:\\Users\\PC\\Desktop\\Nexos_Project_Server\\Server_Project\\ServerCore\\ServerCore.csproj",
       "projectName": "ServerCore",
-      "projectPath": "D:\\Git\\Nexos_Project_Server\\Server_Project\\ServerCore\\ServerCore.csproj",
+      "projectPath": "C:\\Users\\PC\\Desktop\\Nexos_Project_Server\\Server_Project\\ServerCore\\ServerCore.csproj",
       "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
-      "outputPath": "D:\\Git\\Nexos_Project_Server\\Server_Project\\ServerCore\\obj\\",
+      "outputPath": "C:\\Users\\PC\\Desktop\\Nexos_Project_Server\\Server_Project\\ServerCore\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -52,7 +52,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net6.0": {
@@ -68,12 +68,26 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[6.0.36, 6.0.36]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[6.0.36, 6.0.36]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[6.0.36, 6.0.36]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

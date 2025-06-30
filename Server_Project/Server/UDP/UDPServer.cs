@@ -30,7 +30,6 @@ namespace Server
                 string host = Dns.GetHostName();
                 IPHostEntry ipHost = Dns.GetHostEntry(host);
                 ipAddr = ipHost.AddressList.FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork);
-
             }
             endPoint = new IPEndPoint(ipAddr, port);
         }

@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "8EBuiX3a08E=",
+  "dgSpecHash": "MyChTjhqqPk=",
   "success": true,
-  "projectFilePath": "D:\\Git\\Nexos_Project_Server\\Server_Project\\ServerCore\\ServerCore.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\PC\\Desktop\\Nexos_Project_Server\\Server_Project\\ServerCore\\ServerCore.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\PC\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.36\\microsoft.windowsdesktop.app.ref.6.0.36.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.36\\microsoft.netcore.app.ref.6.0.36.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.36\\microsoft.aspnetcore.app.ref.6.0.36.nupkg.sha512"
+  ],
   "logs": []
 }
