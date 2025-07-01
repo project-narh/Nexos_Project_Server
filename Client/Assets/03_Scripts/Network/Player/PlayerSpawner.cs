@@ -1,18 +1,29 @@
+using System;
 using Unity.CharacterController;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
+using Unity.Netcode;
 
-
-public struct PlayerInfo : IComponentData
+public class PlayerSpawner : NetworkBehaviour
 {
-    public int PlayerId;
-    public int Uid;
-}
+    public GameObject prefab;
+    Entity prefabEntity;
 
-public static class PlayerSpawner
-{
+    public void SpawnPlayer(int playerID, Vector3 pos, Quaternion rot, bool isSelf)
+    {
+        if (!ServerNetworkManager.Instance.isServer) return;
+
+        GameObject gameobject = Instantiate(prefab, pos, rot);
+        var net = gameObject.GetComponent<NetworkObject>();
+        net.Spawn();
+
+        var em = World.DefaultGameObjectInjectionWorld.EntityManager;
+        Entity entity = Entity.Null;
+
+    }
+
     public static Entity SpawnPlayer(
         EntityManager em,
         Entity prefab,
@@ -44,28 +55,8 @@ public static class PlayerSpawner
         // 플레이어 정보 설정
         em.AddComponentData(entity, new PlayerInfo
         {
-            PlayerId = playerId,
-            Uid = uid
+            PlayerID = playerId
         });
-
-        // 중요: 모든 이동 및 물리 관련 컴포넌트 초기화
-        //if (em.HasComponent<KinematicCharacterBody>(entity))
-        //{
-        //    var characterBody = em.GetComponentData<KinematicCharacterBody>(entity);
-        //    characterBody.RelativeVelocity = float3.zero; // 상대 속도 초기화
-        //    characterBody.IsGrounded = true;              // 착지 상태로 설정
-        //    em.SetComponentData(entity, characterBody);
-        //}
-
-        //if (em.HasComponent<FirstPersonCharacterControl>(entity))
-        //{
-        //    var control = em.GetComponentData<FirstPersonCharacterControl>(entity);
-        //    control.MoveVector = float3.zero;            // 이동 벡터 초기화
-        //    control.LookDegreesDelta = float2.zero;      // 시선 변화 초기화
-        //    control.Jump = false;                        // 점프 비활성화
-        //    em.SetComponentData(entity, control);
-        //}
-        // Relevant 컴포넌트 설정 (층 관리)
         if (em.HasComponent<Relevant>(entity))
         {
             var relevant = em.GetComponentData<Relevant>(entity);
@@ -97,8 +88,7 @@ public static class PlayerSpawner
 
         em.AddComponentData(entity, new PlayerInfo
         {
-            PlayerId = playerId,
-            Uid = uid
+            PlayerID = playerId
         });
         // ActorEntity 설정 (필요한 경우)
         if (em.HasComponent<ActorEntity>(entity))
@@ -255,7 +245,7 @@ public static class PlayerSpawner
         Debug.LogWarning("[FindViewEntityInHierarchy] No view entity found");
         return Entity.Null;
     }
-    public static void DespawnPlayer(EntityManager em, int uid)
+    public static void DespawnPlayer(EntityManager em, int PlayerID)
     {
         EntityQuery query = em.CreateEntityQuery(typeof(PlayerInfo));
         using var entities = query.ToEntityArray(Unity.Collections.Allocator.Temp);
@@ -263,7 +253,7 @@ public static class PlayerSpawner
 
         for (int i = 0; i < infos.Length; i++)
         {
-            if (infos[i].Uid == uid)
+            if (infos[i].PlayerID == PlayerID)
             {
                 em.DestroyEntity(entities[i]);
                 break;
