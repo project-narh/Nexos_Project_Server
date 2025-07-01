@@ -85,112 +85,16 @@ public class PlayerManager : NetworkBehaviour
 
     void SpawnPlayer(ulong clientId, int playerId, Vector3 pos, Quaternion rot)
     {
-        bool isSelf = (clientId == NetworkManager.Singleton.LocalClientId);
-        // [Netcode Instantiate + Spawn]
         GameObject go = Instantiate(prefab, pos, rot);
         var netObj = go.GetComponent<NetworkObject>();
         netObj.SpawnAsPlayerObject(clientId, true);
 
-        // [ECS Entity 생성: BakerAuthoring으로 자동 생성됨]
-        var em = World.DefaultGameObjectInjectionWorld.EntityManager;
-        Debug.Log($"[SpawnPlayer] 시작 - ClientId: {clientId}, PlayerId: {playerId}");
-        Debug.Log($"[SpawnPlayer] World 존재: {World.DefaultGameObjectInjectionWorld != null}");
-        Debug.Log($"[SpawnPlayer] EntityManager 존재: {em != null}");
+        var playerSync = go.GetComponent<PlayerNetwork>();
+        if (playerSync == null)
+            playerSync = go.AddComponent<PlayerNetwork>();
 
-        //Entity playerEntity = em.Instantiate(prefabEntity);
-
-        // EntityPrefab 상태 확인
-        var query = em.CreateEntityQuery(typeof(EntityPrefab));
-        int count = query.CalculateEntityCount();
-        Debug.Log($"[SpawnPlayer] EntityPrefab 개수: {count}");
-
-        if (count > 0)
-        {
-            var prefabComponent = query.GetSingleton<EntityPrefab>();
-            Debug.Log($"[SpawnPlayer] EntityPrefab.Prefab: {prefabComponent.Prefab}");
-            Debug.Log($"[SpawnPlayer] Prefab 존재 여부: {em.Exists(prefabComponent.Prefab)}");
-
-            if (em.Exists(prefabComponent.Prefab))
-            {
-                Entity playerEntity = em.Instantiate(prefabComponent.Prefab);
-                Debug.Log($"[SpawnPlayer] Entity 생성 성공: {playerEntity}");
-
-                em.SetComponentData(playerEntity, new Unity.Transforms.LocalTransform
-                {
-                    Position = pos,
-                    Rotation = rot,
-                    Scale = 1f
-                });
-
-                if (!em.HasComponent<PlayerInfo>(playerEntity))
-                    em.AddComponent<PlayerInfo>(playerEntity);
-
-                em.SetComponentData(playerEntity, new PlayerInfo { PlayerID = playerId });
-
-                if (isSelf && go != null)
-                {
-                    var playerSync = go.GetComponent<PlayerNetwork>();
-                    if (playerSync == null)
-                    {
-                        playerSync = go.AddComponent<PlayerNetwork>();
-                    }
-                    go.transform.GetChild(1).gameObject.SetActive(true); // 카메라 활성화
-                    playerSync.SetEntity(playerEntity);
-                }
-
-                // Main / Other 플레이어 구분
-                if (isSelf)
-                {
-                    em.AddComponent<IsMainPlayerTag>(playerEntity);
-                    mainPlayerEntity = playerEntity;
-
-                    if (em.HasBuffer<LinkedEntityGroup>(playerEntity))
-                    {
-                        var linkedEntities = em.GetBuffer<LinkedEntityGroup>(playerEntity);
-
-                        // 첫번째 자식 Entity (index 1) 기준
-                        if (linkedEntities.Length > 1)
-                        {
-                            var cameraEntity = linkedEntities[1].Value;
-
-                            if (!em.HasComponent<MainEntityCamera>(cameraEntity))
-                                em.AddComponent<MainEntityCamera>(cameraEntity);
-
-                            if (!em.HasComponent<FirstPersonCharacterView>(cameraEntity))
-                            {
-                                em.AddComponent<FirstPersonCharacterView>(cameraEntity); // 컴포넌트 추가
-                                em.SetComponentData(cameraEntity, new FirstPersonCharacterView
-                                {
-                                    CharacterEntity = playerEntity
-                                });
-                            }
-                        }
-                    }
-
-                }
-                else
-                {
-                    em.AddComponent<IsOtherPlayerTag>(playerEntity);
-                    // 입력 관련 컴포넌트 제거
-                    if (em.HasComponent<FirstPersonPlayer>(playerEntity))
-                        em.RemoveComponent<FirstPersonPlayer>(playerEntity);
-                    if (em.HasComponent<FirstPersonPlayerInputs>(playerEntity))
-                        em.RemoveComponent<FirstPersonPlayerInputs>(playerEntity);
-                }
-
-                playerEntityMap[playerId] = playerEntity;
-                go.GetComponent<PlayerNetwork>().SetEntity(playerEntity);
-            }
-            else
-            {
-                Debug.LogError("[SpawnPlayer] Prefab Entity가 존재하지 않음!");
-            }
-        }
-        else
-        {
-            Debug.LogError("[SpawnPlayer] EntityPrefab 컴포넌트를 찾을 수 없음!");
-        }
-        Debug.Log($"[PlayerManager] Spawned PlayerID:{playerId}, IsSelf:{isSelf}");
+        playerSync.InitPlayerClientRpc(playerId, pos, rot);
+        Debug.Log($"[PlayerManager] 플레이어 생성");
     }
 }
 
