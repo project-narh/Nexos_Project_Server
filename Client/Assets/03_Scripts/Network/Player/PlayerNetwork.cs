@@ -76,8 +76,19 @@ public class PlayerNetwork : NetworkBehaviour
             if (!em.HasComponent<IsMainPlayerTag>(playerEntity))
                 em.AddComponent<IsMainPlayerTag>(playerEntity);
 
-            if (!em.HasComponent<FirstPersonPlayer>(playerEntity))
-                em.AddComponent<FirstPersonPlayer>(playerEntity);
+            //if (!em.HasComponent<FirstPersonPlayer>(playerEntity))
+            //{
+            //    em.AddComponentData(playerEntity, new FirstPersonPlayer
+            //    {
+            //        ControlledCharacter = playerEntity,
+            //        LookInputSensitivity = 0.1f // 예시 값
+            //    });
+            //}
+
+            //if (!em.HasComponent<FirstPersonPlayerInputs>(playerEntity))
+            //{
+            //    em.AddComponentData(playerEntity, new FirstPersonPlayerInputs());
+            //}
 
             if (em.HasBuffer<LinkedEntityGroup>(playerEntity))
             {
@@ -99,6 +110,14 @@ public class PlayerNetwork : NetworkBehaviour
                     }
                 }
             }
+
+            Entity playerEntity_Controll = em.CreateEntity(typeof(FirstPersonPlayer), typeof(FirstPersonPlayerInputs));
+
+            em.SetComponentData(playerEntity_Controll, new FirstPersonPlayer
+            {
+                ControlledCharacter = playerEntity,
+                LookInputSensitivity = 0.2f // 예시 값
+            });
 
             // 카메라 GameObject 활성화 (필요 시)
             transform.GetChild(1).gameObject.SetActive(true);
