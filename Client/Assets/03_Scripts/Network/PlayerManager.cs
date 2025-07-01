@@ -11,7 +11,8 @@ public class PlayerManager : NetworkBehaviour
 {
     public static PlayerManager Instance;
     bool isSpawn = false;
-    private Dictionary<int, Entity> playerEntityMap = new();
+    public Dictionary<ulong, Entity> playerEntityMap = new();
+    private Dictionary<ulong, NetworkObject> playerNetworkMap = new();
     int nextID = 1;
     public GameObject prefab;
     public GameObject entityPrefab;
@@ -71,6 +72,29 @@ public class PlayerManager : NetworkBehaviour
             NetworkManager.OnClientConnectedCallback += OnClientConnected;
             Debug.Log("[PlayerManager] OnClientConnectedCallback 등록 완료");
         }
+        else
+        {
+            Debug.Log("[PlayerManager] 클라이언트 기존 플레이어 ECS 생성 시작");
+            foreach (var kvp in NetworkManager.Singleton.SpawnManager.SpawnedObjects)
+            {
+                var netObj = kvp.Value;
+
+                if (netObj.TryGetComponent<PlayerNetwork>(out var playerSync))
+                {
+                    ulong playerId = netObj.OwnerClientId;
+
+                    if (playerId == NetworkManager.Singleton.LocalClientId)
+                        continue;
+
+                    Vector3 pos = netObj.transform.position;
+                    Quaternion rot = netObj.transform.rotation;
+
+                    playerSync.ECSSpawn(playerId, pos, rot);
+                }
+            }
+
+            Debug.Log("[PlayerManager] 클라이언트 기존 플레이어 ECS 생성 완료");
+        }
     }
 
     void OnClientConnected(ulong clientId)
@@ -79,11 +103,11 @@ public class PlayerManager : NetworkBehaviour
         int playerID = nextID++;
 
         
-        SpawnPlayer(clientId, playerID, spawnPoint, Quaternion.identity);
+        SpawnPlayer(clientId, spawnPoint, Quaternion.identity);
 
     }
 
-    void SpawnPlayer(ulong clientId, int playerId, Vector3 pos, Quaternion rot)
+    void SpawnPlayer(ulong clientId, Vector3 pos, Quaternion rot)
     {
         GameObject go = Instantiate(prefab, pos, rot);
         var netObj = go.GetComponent<NetworkObject>();
@@ -93,7 +117,9 @@ public class PlayerManager : NetworkBehaviour
         if (playerSync == null)
             playerSync = go.AddComponent<PlayerNetwork>();
 
-        playerSync.InitPlayerClientRpc(playerId, pos, rot);
+        playerSync.InitPlayerClientRpc(clientId, pos, rot);
+
+        playerNetworkMap[clientId] = netObj;
         Debug.Log($"[PlayerManager] 플레이어 생성");
     }
 }

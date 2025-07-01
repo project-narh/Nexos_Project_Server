@@ -1,73 +1,74 @@
 using Unity.Entities;
 using Unity.Netcode;
-using UnityEditor.PackageManager;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public class PlayerNetwork : NetworkBehaviour
 {
     private Entity playerEntity;
     private EntityManager entityManager;
+    private ulong playerId;
 
     private void Awake()
     {
         enabled = false;
     }
 
-    public void SetEntity(Entity entity)
+    public void SetEntity(Entity entity, ulong playerId)
     {
         playerEntity = entity;
         entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         enabled = true;
+        this.playerId = playerId;
     }
 
-    [ClientRpc]
-    public void InitPlayerClientRpc(int playerId, Vector3 pos, Quaternion rot)
+    public void ECSSpawn(ulong playerId, Vector3 pos, Quaternion rot)
     {
         Debug.Log($"[PlayerNetwork] InitPlayerClientRpc: playerId={playerId}");
         var em = World.DefaultGameObjectInjectionWorld.EntityManager;
         Debug.Log($"[SpawnPlayer] World 존재: {World.DefaultGameObjectInjectionWorld != null}");
         Debug.Log($"[SpawnPlayer] EntityManager 존재: {em != null}");
-            Debug.Log("[PlayerNetwork] 내 플레이어로 설정");
+        Debug.Log("[PlayerNetwork] 내 플레이어로 설정");
 
-            var query = em.CreateEntityQuery(typeof(EntityPrefab));
-            int count = query.CalculateEntityCount();
-            Debug.Log($"[SpawnPlayer] EntityPrefab 개수: {count}");
+        var query = em.CreateEntityQuery(typeof(EntityPrefab));
+        int count = query.CalculateEntityCount();
+        Debug.Log($"[SpawnPlayer] EntityPrefab 개수: {count}");
 
-            if (count > 0)
+        if (count > 0)
+        {
+            var prefabComponent = query.GetSingleton<EntityPrefab>();
+            Debug.Log($"[SpawnPlayer] EntityPrefab.Prefab: {prefabComponent.Prefab}");
+            Debug.Log($"[SpawnPlayer] Prefab 존재 여부: {em.Exists(prefabComponent.Prefab)}");
+
+            if (em.Exists(prefabComponent.Prefab))
             {
-                var prefabComponent = query.GetSingleton<EntityPrefab>();
-                Debug.Log($"[SpawnPlayer] EntityPrefab.Prefab: {prefabComponent.Prefab}");
-                Debug.Log($"[SpawnPlayer] Prefab 존재 여부: {em.Exists(prefabComponent.Prefab)}");
+                Entity playerEntity = em.Instantiate(prefabComponent.Prefab);
+                Debug.Log($"[SpawnPlayer] Entity 생성 성공: {playerEntity}");
 
-                if (em.Exists(prefabComponent.Prefab))
+                em.SetComponentData(playerEntity, new Unity.Transforms.LocalTransform
                 {
-                    Entity playerEntity = em.Instantiate(prefabComponent.Prefab);
-                    Debug.Log($"[SpawnPlayer] Entity 생성 성공: {playerEntity}");
+                    Position = pos,
+                    Rotation = rot,
+                    Scale = 1f
+                });
 
-                    em.SetComponentData(playerEntity, new Unity.Transforms.LocalTransform
-                    {
-                        Position = pos,
-                        Rotation = rot,
-                        Scale = 1f
-                    });
+                if (!em.HasComponent<PlayerInfo>(playerEntity))
+                    em.AddComponent<PlayerInfo>(playerEntity);
 
-                    if (!em.HasComponent<PlayerInfo>(playerEntity))
-                        em.AddComponent<PlayerInfo>(playerEntity);
-
-                    em.SetComponentData(playerEntity, new PlayerInfo { PlayerID = playerId });
-                    SetEntity(playerEntity);
-                }
-                else
-                {
-                    Debug.LogError("[SpawnPlayer] Prefab Entity가 존재하지 않음!");
-                }
+                em.SetComponentData(playerEntity, new PlayerInfo { PlayerID = playerId });
+                SetEntity(playerEntity, playerId);
             }
             else
             {
-                Debug.LogError("[SpawnPlayer] EntityPrefab 컴포넌트를 찾을 수 없음!");
+                Debug.LogError("[SpawnPlayer] Prefab Entity가 존재하지 않음!");
             }
-            Debug.Log($"[PlayerManager] Spawned PlayerID:{playerId}");
+        }
+        else
+        {
+            Debug.LogError("[SpawnPlayer] EntityPrefab 컴포넌트를 찾을 수 없음!");
+        }
+        Debug.Log($"[PlayerManager] Spawned PlayerID:{playerId}");
+
+        PlayerManager.Instance.playerEntityMap[playerId] = playerEntity;
 
         if (IsOwner)
         {
@@ -112,7 +113,12 @@ public class PlayerNetwork : NetworkBehaviour
         }
     }
 
-    void Update()
+    [ClientRpc]
+    public void InitPlayerClientRpc(ulong playerId, Vector3 pos, Quaternion rot)
+    {
+        ECSSpawn(playerId,pos,rot);
+    }
+    void FixedUpdate()
     {
         if (World.DefaultGameObjectInjectionWorld == null)
             return;

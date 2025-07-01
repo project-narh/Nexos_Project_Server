@@ -3,7 +3,7 @@ using Unity.Entities;
 
 public struct PlayerInfo : IComponentData
 {
-    public int PlayerID;
+    public ulong PlayerID;
 }
 
 public class EntityPrefabAuthoring : MonoBehaviour
